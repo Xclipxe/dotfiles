@@ -1,4 +1,3 @@
-path=('/opt/homebrew/bin' $path)
 export PATH
 export CLICOLOR='Yes'
 # export LSCOLORS='ExGxFxdaCxDaDahbadacec'

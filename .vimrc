@@ -11,6 +11,11 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'mileszs/ack.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'preservim/nerdtree'
+Plugin 'preservim/tagbar'
+Plugin 'tpope/vim-commentary'
+Plugin 'ludovicchabant/vim-gutentags'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -29,7 +34,7 @@ filetype plugin indent on    " required
 syntax on
 
 " Disable the default Vim startup message.
-set shortmess+=I
+" set shortmess+=I
 
 " Show line numbers.
 set number
@@ -72,7 +77,7 @@ nmap Q <Nop>
 " 'Q' in normal mode enters Ex mode. You almost never want this.
 
 " Disable audible bell because it's annoying.
-set noerrorbells visualbell t_vb=
+" set noerrorbells visualbell t_vb=
 
 " Enable mouse support. You should avoid relying on this too much, but it can
 " sometimes be convenient.
@@ -106,7 +111,6 @@ set shiftwidth=4
 set expandtab
 
 " use colorscheme solarized
-
 " let g:solarized_termcolors=256
 syntax enable
 set background=dark
@@ -138,3 +142,16 @@ set scrolloff=5
 cnoreabbrev Ack Ack!
 nnoremap <Leader>a :Ack!<Space>
 
+" set cursor line highlight
+set cursorline
+
+" nerdtree mappings
+nnoremap <C-n> :NERDTreeToggle<CR>
+
+" auto comment setting
+autocmd FileType c set commentstring=//\ %s
+
+" tagbar mapping
+nmap <leader>t :TagbarToggle<CR>
+
+set shell=/bin/zsh\ -l
