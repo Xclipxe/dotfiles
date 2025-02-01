@@ -34,3 +34,20 @@ alias ctags="$(brew --prefix)/bin/ctags"
 alias gdb="riscv64-elf-gdb"
 mit="$home/documents/project/mit/MIT6.S081-2020-labs"
 alias cdmit="cd $mit"
+
+# fzf 
+source <(fzf --zsh)
+
+# yazi, allow change directory when quit
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
+# add homebrew include path
+export C_INCLUDE_PATH="/opt/homebrew/include:$C_INCLUDE_PATH"
+export LIBRARY_PATH="/opt/homebrew/lib:$LIBRARY_PATH"

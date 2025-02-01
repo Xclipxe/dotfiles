@@ -5,10 +5,7 @@ filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'tpope/vim-surround'
@@ -16,19 +13,10 @@ Plugin 'preservim/nerdtree'
 Plugin 'preservim/tagbar'
 Plugin 'tpope/vim-commentary'
 Plugin 'ludovicchabant/vim-gutentags'
+Plugin 'luochen1990/rainbow'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
-
-" If you open this file in Vim, it'll be syntax highlighted for you.
-
-" Vim is based on Vi. Setting `nocompatible` switches from the default
-" Vi-compatibility mode and enables useful Vim functionality. This
-" configuration option turns out not to be necessary for the file named
-" '~/.vimrc', because Vim automatically enters nocompatible mode if that file
-" is present. But we're including it here just in case this config file is
-" loaded some other way (e.g. saved as `foo`, and then Vim started with
-" `vim -u foo`).
 
 " Turn on syntax highlighting.
 syntax on
@@ -39,15 +27,8 @@ syntax on
 " Show line numbers.
 set number
 
-" This enables relative line numbering mode. With both number and
-" relativenumber enabled, the current line shows the true line number, while
-" all other lines (above and below) are numbered relative to the current line.
-" This is useful because you can tell, at a glance, what count is needed to
-" jump up or down to a particular line, by {count}k to go up or {count}j to go
-" down.
 set relativenumber
 
-" Always show the status line at the bottom, even if you only have one window open.
 set laststatus=2
 
 " The backspace key has slightly unintuitive behavior by default. For example,
@@ -77,7 +58,7 @@ nmap Q <Nop>
 " 'Q' in normal mode enters Ex mode. You almost never want this.
 
 " Disable audible bell because it's annoying.
-" set noerrorbells visualbell t_vb=
+set noerrorbells visualbell t_vb=
 
 " Enable mouse support. You should avoid relying on this too much, but it can
 " sometimes be convenient.
@@ -89,15 +70,16 @@ set mouse+=a
 " bad habit. The former is enforceable through a .vimrc, while we don't know
 " how to prevent the latter.
 " Do this in normal mode...
-nnoremap <Left>  :echoe "Use h"<CR>
-nnoremap <Right> :echoe "Use l"<CR>
-nnoremap <Up>    :echoe "Use k"<CR>
-nnoremap <Down>  :echoe "Use j"<CR>
-" ...and in insert mode
-inoremap <Left>  <ESC>:echoe "Use h"<CR>
-inoremap <Right> <ESC>:echoe "Use l"<CR>
-inoremap <Up>    <ESC>:echoe "Use k"<CR>
-inoremap <Down>  <ESC>:echoe "Use j"<CR>
+" nnoremap <Left>  :echoe "Use h"<CR>
+" nnoremap <Right> :echoe "Use l"<CR>
+" nnoremap <Up>    :echoe "Use k"<CR>
+" nnoremap <Down>  :echoe "Use j"<CR>
+" " ...and in insert mode
+" inoremap <Left>  <ESC>:echoe "Use h"<CR>
+" inoremap <Right> <ESC>:echoe "Use l"<CR>
+" inoremap <Up>    <ESC>:echoe "Use k"<CR>
+" inoremap <Down>  <ESC>:echoe "Use j"<CR>
+" now I don't need this!
 
 " plugin CtrlP, remap shortcut
 let g:ctrlp_map = '<c-p>'
@@ -110,11 +92,11 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 
-" use colorscheme solarized
+" use colorscheme gruvbox
 " let g:solarized_termcolors=256
 syntax enable
 set background=dark
-colorscheme solarized
+colorscheme gruvbox
 
 " show current position
 set ruler
@@ -126,10 +108,10 @@ set clipboard=unnamed
 set tags=./tags;,tags;
 
 " set auto bracket
-inoremap ' ''<ESC>i
-inoremap " ""<ESC>i
-inoremap ( ()<ESC>i
-inoremap [ []<ESC>i
+" inoremap ' ''<ESC>i
+" inoremap " ""<ESC>i
+" inoremap ( ()<ESC>i
+" inoremap [ []<ESC>i
 iabbrev {i {<enter>}<esc>O<BS>
 
 " pathogen plugin
@@ -155,3 +137,34 @@ autocmd FileType c set commentstring=//\ %s
 nmap <leader>t :TagbarToggle<CR>
 
 set shell=/bin/zsh\ -l
+
+" remap <esc>
+inoremap jk <esc>
+
+" better ctrl d and ctrl u
+noremap <C-d> <C-d>zz
+noremap <C-u> <C-u>zz
+
+" use ag instead of ack, because the fucking apple's silly update
+" let g:ackprg = 'ag --vimgrep'
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
+" highlight when use *
+set hls
+
+" default use demical when <C-a>
+set nrformats=
+
+" show what I've input when in normal mode
+set showcmd
+
+" use * could search selected text in visual mode
+xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
+xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
+
+function! s:VSetSearch(cmdtype)
+  let temp = @s
+  norm! gv"sy
+  let @/ = '\V' . substitute(escape(@s, a:cmdtype.'\'), '\n', '\\n', 'g')
+  let @s = temp
+endfunction
