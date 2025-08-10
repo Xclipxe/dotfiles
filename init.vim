@@ -11,7 +11,6 @@ Plug 'morhetz/gruvbox'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
 " Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'terryma/vim-multiple-cursors'
 Plug 'justinmk/vim-sneak'
 Plug 'stevearc/oil.nvim'
@@ -31,8 +30,14 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 
-Plug 'saghen/blink.cmp', { 'tag': '1.5.0' } 
+Plug 'saghen/blink.cmp', { 'tag': 'v1.5.0' } 
 Plug 'rafamadriz/friendly-snippets'
+
+" markdown preview
+Plug 'echasnovski/mini.icons'
+Plug 'OXY2DEV/markview.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
 call plug#end()
 
 " Disable the default Vim startup message.
@@ -269,39 +274,25 @@ nnoremap L gt
 " }
 " EOF
 " 
-" lua << EOF
-" require'nvim-treesitter.configs'.setup {
-"     -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-"   ensure_installed = { "c", "lua", "vim", "query", "markdown", "python"},
-" -- Install parsers synchronously (only applied to `ensure_installed`)
-"   sync_install = false,
-"   highlight = {
-"     enable = true,
-"     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-"     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-"     -- Using this option may slow down your editor, and you may see some duplicate highlights.
-"     -- Instead of true it can also be a list of languages
-"     additional_vim_regex_highlighting = false,
-"   },
-"   incremental_selection = {
-"     enable = true,
-"     keymaps = {
-"       init_selection = "<cr>",
-"       node_incremental = "<cr>",
-"       scope_incremental = false,
-"       node_decremental = "<bs>",
-"     },
-"   },
-" }
-" require("oil").setup({
-"     columns = {
-"         "icon",
-"         -- "permissions",
-"         -- "size",
-"         -- "mtime",
-"     },
-" })
-" EOF
+lua << EOF
+require('mini.icons').setup()
+
+require("markview").setup({
+    preview = {
+        icon_provider = "mini", -- "mini" or "devicons"
+    }
+})
+
+require("oil").setup({
+    columns = {
+        "icon",
+        -- "permissions",
+        -- "size",
+        -- "mtime",
+    },
+})
+
+EOF
 
 lua << EOF
 require("mason").setup({
@@ -379,6 +370,7 @@ cmp.setup({
 local capabilities = require('blink.cmp').get_lsp_capabilities()
 local lspconfig = require('lspconfig')
 lspconfig['clangd'].setup({ capabilities = capabilities })
+lspconfig['marksman'].setup({})
 --lspconfig.clangd.setup {
 --    cmd = { "clangd" },
 --    on_attach = function(client, bufnr)
@@ -391,4 +383,27 @@ lspconfig['clangd'].setup({ capabilities = capabilities })
 vim.keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true })
 vim.keymap.set("n", "gr", "<Cmd>lua vim.lsp.buf.references()<CR>", { noremap = true })
 vim.keymap.set("n", "gn", "<Cmd>lua vim.lsp.buf.rename()<CR>", { noremap = true })
+require'nvim-treesitter.configs'.setup {
+    -- A list of parser names, or "all" (the listed parsers MUST always be installed)
+  ensure_installed = { "c", "lua", "vim", "query", "markdown", "python"},
+-- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+  highlight = {
+    enable = true,
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "<cr>",
+      node_incremental = "<cr>",
+      scope_incremental = false,
+      node_decremental = "<bs>",
+    },
+  },
+}
 EOF
