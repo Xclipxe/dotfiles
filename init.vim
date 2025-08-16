@@ -244,20 +244,20 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 " To map <Esc> to exit terminal-mode: >vim
 tnoremap <Esc> <C-\><C-n>
 " map <A-e> to <esc>
-tnoremap <A-e> <Esc>
+tnoremap <M-e> <Esc>
 " " To use `ALT+{h,j,k,l}` to navigate windows from any mode >vim
-tnoremap <A-h> <C-\><C-N><C-w>h
-tnoremap <A-j> <C-\><C-N><C-w>j
-tnoremap <A-k> <C-\><C-N><C-w>k
-tnoremap <A-l> <C-\><C-N><C-w>l
-inoremap <A-h> <C-\><C-N><C-w>h
-inoremap <A-j> <C-\><C-N><C-w>j
-inoremap <A-k> <C-\><C-N><C-w>k
-inoremap <A-l> <C-\><C-N><C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
+tnoremap <M-h> <C-\><C-N><C-w>h
+tnoremap <M-j> <C-\><C-N><C-w>j
+tnoremap <M-k> <C-\><C-N><C-w>k
+tnoremap <M-l> <C-\><C-N><C-w>l
+inoremap <M-h> <C-\><C-N><C-w>h
+inoremap <M-j> <C-\><C-N><C-w>j
+inoremap <M-k> <C-\><C-N><C-w>k
+inoremap <M-l> <C-\><C-N><C-w>l
+nnoremap <M-h> <C-w>h
+nnoremap <M-j> <C-w>j
+nnoremap <M-k> <C-w>k
+nnoremap <M-l> <C-w>l
 
 " map tab navigate
 nnoremap H gT
