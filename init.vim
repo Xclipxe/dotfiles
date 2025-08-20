@@ -16,7 +16,6 @@ Plug 'justinmk/vim-sneak'
 Plug 'stevearc/oil.nvim'
 Plug 'vuciv/golf'
 
-
 " lsp
 Plug 'mason-org/mason.nvim'
 Plug 'neovim/nvim-lspconfig'
@@ -38,6 +37,11 @@ Plug 'echasnovski/mini.icons'
 Plug 'OXY2DEV/markview.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
+" portal
+Plug 'cbochs/portal.nvim'
+" Optional dependencies
+Plug 'cbochs/grapple.nvim'
+Plug 'ThePrimeagen/harpoon'
 call plug#end()
 
 " Disable the default Vim startup message.
@@ -406,4 +410,8 @@ require'nvim-treesitter.configs'.setup {
     },
   },
 }
+
+-- portal bingdings
+vim.keymap.set("n", "<leader>o", "<cmd>Portal jumplist backward<cr>")
+vim.keymap.set("n", "<leader>i", "<cmd>Portal jumplist forward<cr>")
 EOF
