@@ -414,4 +414,5 @@ require'nvim-treesitter.configs'.setup {
 -- portal bingdings
 vim.keymap.set("n", "<leader>o", "<cmd>Portal jumplist backward<cr>")
 vim.keymap.set("n", "<leader>i", "<cmd>Portal jumplist forward<cr>")
+vim.keymap.set("n", "cc", ":cclose<cr>")
 EOF
