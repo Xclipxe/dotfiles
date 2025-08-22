@@ -44,9 +44,8 @@ Plug 'cbochs/grapple.nvim'
 Plug 'ThePrimeagen/harpoon'
 call plug#end()
 
-" Disable the default Vim startup message.
-" set shortmess+=I
 
+let mapleader = " "
 " Show line numbers.
 set number
 
@@ -86,27 +85,6 @@ set noerrorbells visualbell t_vb=
 " Enable mouse support. You should avoid relying on this too much, but it can
 " sometimes be convenient.
 set mouse+=a
-
-" Try to prevent bad habits like using the arrow keys for movement. This is
-" not the only possible bad habit. For example, holding down the h/j/k/l keys
-" for movement, rather than using more efficient movement commands, is also a
-" bad habit. The former is enforceable through a .vimrc, while we don't know
-" how to prevent the latter.
-" Do this in normal mode...
-" nnoremap <Left>  :echoe "Use h"<CR>
-" nnoremap <Right> :echoe "Use l"<CR>
-" nnoremap <Up>    :echoe "Use k"<CR>
-" nnoremap <Down>  :echoe "Use j"<CR>
-" " ...and in insert mode
-" inoremap <Left>  <ESC>:echoe "Use h"<CR>
-" inoremap <Right> <ESC>:echoe "Use l"<CR>
-" inoremap <Up>    <ESC>:echoe "Use k"<CR>
-" inoremap <Down>  <ESC>:echoe "Use j"<CR>
-" now I don't need this!
-
-" plugin CtrlP, remap shortcut
-" let g:ctrlp_map = '<c-p>'
-" let g:ctrlp_cmd = 'CtrlP'
 
 " set autoindent
 set autoindent
@@ -387,6 +365,8 @@ lspconfig['marksman'].setup({})
 vim.keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true })
 vim.keymap.set("n", "gr", "<Cmd>lua vim.lsp.buf.references()<CR>", { noremap = true })
 vim.keymap.set("n", "gn", "<Cmd>lua vim.lsp.buf.rename()<CR>", { noremap = true })
+vim.keymap.set("n", "g]", "<Cmd>lua vim.diagnostic.goto_next()<CR>", { noremap = true })
+vim.keymap.set("n", "g[", "<Cmd>lua vim.diagnostic.goto_prev()<CR>", { noremap = true })
 require'nvim-treesitter.configs'.setup {
     -- A list of parser names, or "all" (the listed parsers MUST always be installed)
   ensure_installed = { "c", "lua", "vim", "query", "markdown", "python"},
