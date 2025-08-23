@@ -10,6 +10,7 @@ Plug 'tpope/vim-repeat'
 Plug 'morhetz/gruvbox'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
+Plug 'nvim-telescope/telescope-live-grep-args.nvim'
 " Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
 Plug 'terryma/vim-multiple-cursors'
 Plug 'justinmk/vim-sneak'
@@ -198,13 +199,6 @@ nnoremap <leader>rc :tabedit ~/.config/nvim/init.vim<CR>
 " paste from OS easier, (has problem using nvim)
 " inoremap <silent> <c-v> <c-o>:set paste<cr><c-r>+<c-o>:set nopaste<cr>
 
-" telescope related
-" Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr> 
-
 " " the gf search according to the path, this is the python lib's location on my
 " " mac
 " set path+=/opt/homebrew/Cellar/python@3.13/3.13.2/Frameworks/Python.framework/Versions/3.13/lib/python3.13
@@ -281,41 +275,10 @@ require("mason").setup({
 
 })
 
-
---local cmp = require'cmp'
---cmp.setup({
---    snippet = {
---        expand = function(args)
---        vim.fn["vsnip#anonymous"](args.body)
---        end,
---    },
---    window = {
---        },
---    mapping = cmp.mapping.preset.insert({
---    ['<A-b>'] = cmp.mapping.scroll_docs(-4),
---    ['<A-f>'] = cmp.mapping.scroll_docs(4),
---    ["<tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
---    ['<C-Space>'] = cmp.mapping.complete(),
---    ['<C-e>'] = cmp.mapping.abort(),
---    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
---    }),
---    sources = cmp.config.sources({
---    { name = 'nvim_lsp' },
---    { name = 'vsnip' },
---    }, {
---        { name = 'buffer' },
---    })
---})
---
---local capabilities = require('cmp_nvim_lsp').default_capabilities()
---require('lspconfig')['clangd'].setup {
---    capabilities = capabilities
---}
 local cmp = require('blink.cmp')
 
--- my habits: no preselect, tab navigate
+-- my habits: no preselect
 cmp.setup({
-    -- 键映射预设
     keymap = {
         preset = 'default',
         ['<tab>'] = { 'snippet_forward', 'fallback' },
@@ -353,20 +316,15 @@ local capabilities = require('blink.cmp').get_lsp_capabilities()
 local lspconfig = require('lspconfig')
 lspconfig['clangd'].setup({ capabilities = capabilities })
 lspconfig['marksman'].setup({})
---lspconfig.clangd.setup {
---    cmd = { "clangd" },
---    on_attach = function(client, bufnr)
---      local opts = { noremap=true, silent=true }
---      vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
---      vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
---      vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
---    end,
---}
+
+-- lsp keymap
 vim.keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true })
 vim.keymap.set("n", "gr", "<Cmd>lua vim.lsp.buf.references()<CR>", { noremap = true })
 vim.keymap.set("n", "gn", "<Cmd>lua vim.lsp.buf.rename()<CR>", { noremap = true })
 vim.keymap.set("n", "g]", "<Cmd>lua vim.diagnostic.goto_next()<CR>", { noremap = true })
 vim.keymap.set("n", "g[", "<Cmd>lua vim.diagnostic.goto_prev()<CR>", { noremap = true })
+
+-- treesitter config
 require'nvim-treesitter.configs'.setup {
     -- A list of parser names, or "all" (the listed parsers MUST always be installed)
   ensure_installed = { "c", "lua", "vim", "query", "markdown", "python"},
@@ -391,8 +349,24 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
+local telescope = require("telescope")
+
+-- telescope
+telescope.setup({
+})
+
+-- then load the extension
+telescope.load_extension("live_grep_args")
+
+vim.keymap.set('n', '<leader>ff', ":lua require('telescope.builtin').find_files()<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
+vim.keymap.set('n', '<leader>fb', ":lua require('telescope.builtin').buffers()<CR>", { noremap = true })
+vim.keymap.set('n', '<leader>fh', ":lua require('telescope.builtin').help_tags()<CR>", { noremap = true })
+
 -- portal bingdings
 vim.keymap.set("n", "<leader>o", "<cmd>Portal jumplist backward<cr>")
 vim.keymap.set("n", "<leader>i", "<cmd>Portal jumplist forward<cr>")
+
+
 vim.keymap.set("n", "cc", ":cclose<cr>")
 EOF
