@@ -12,7 +12,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
 Plug 'nvim-telescope/telescope-live-grep-args.nvim'
 " Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
-Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'justinmk/vim-sneak'
 Plug 'stevearc/oil.nvim'
 Plug 'vuciv/golf'
@@ -261,10 +261,8 @@ require("markview").setup({
 
 require("oil").setup({
     columns = {
-        "icon",
-        -- "permissions",
-        -- "size",
-        -- "mtime",
+        "size",
+        "mtime",
     },
 })
 
@@ -355,6 +353,22 @@ local telescope = require("telescope")
 telescope.setup({
 })
 
+local lga_actions = require("telescope-live-grep-args.actions")
+
+telescope.setup {
+  extensions = {
+    live_grep_args = {
+      auto_quoting = true, -- enable/disable auto-quoting
+      -- define mappings, e.g.
+      mappings = { -- extend mappings
+        i = {
+            ["<C-k>"] = lga_actions.quote_prompt({ postfix = " -t" }),
+        },
+      },
+    }
+  }
+}
+
 -- then load the extension
 telescope.load_extension("live_grep_args")
 
@@ -369,4 +383,19 @@ vim.keymap.set("n", "<leader>i", "<cmd>Portal jumplist forward<cr>")
 
 
 vim.keymap.set("n", "cc", ":cclose<cr>")
+
+
+-- toggle paste mode
+local toggle_paste = function()
+  if vim.opt.paste:get() then
+    vim.opt.paste = false
+    print('PASTE mode OFF')
+  else
+    vim.opt.paste = true
+    print('PASTE mode ON')
+  end
+end
+
+vim.keymap.set('n', '<F5>', toggle_paste, { desc = 'Toggle paste mode' })
+
 EOF
