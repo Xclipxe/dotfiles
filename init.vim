@@ -60,20 +60,11 @@ set laststatus=2
 " backspace over anything.
 set backspace=indent,eol,start
 
-" By default, Vim doesn't let you hide a buffer (i.e. have a buffer that isn't
-" shown in any window) that has unsaved changes. This is to prevent you from "
-" forgetting about unsaved changes and then quitting e.g. via `:qa!`. We find
-" hidden buffers helpful enough to disable this protection. See `:help hidden`
-" for more information on this.
 set hidden
 
-" This setting makes search case-insensitive when all characters in the string
-" being searched are lowercase. However, the search becomes case-sensitive if
-" it contains any capital letters. This makes searching more convenient.
 set ignorecase
 set smartcase
 
-" Enable searching as you type, rather than waiting till you press enter.
 set incsearch
 
 " Unbind some useless/annoying default key bindings.
@@ -83,11 +74,8 @@ nmap Q <Nop>
 " Disable audible bell because it's annoying.
 set noerrorbells visualbell t_vb=
 
-" Enable mouse support. You should avoid relying on this too much, but it can
-" sometimes be convenient.
 set mouse+=a
 
-" set autoindent
 set autoindent
 set smartindent
 set tabstop=4
@@ -96,7 +84,6 @@ set expandtab
 autocmd FileType c,cpp setlocal tabstop=4 shiftwidth=4 noexpandtab
 
 " use colorscheme gruvbox
-" let g:solarized_termcolors=256
 syntax enable
 set background=dark
 colorscheme gruvbox
@@ -109,15 +96,7 @@ set clipboard=unnamed
 
 " set tags path
 set tags=./.tags;,.tags;,./tags;,tags;
-" augroup TxtFileSettings
-"   autocmd!
-"   autocmd BufRead,BufNewFile *.txt set iskeyword+=(,),-,#
-"   autocmd BufLeave *.txt set iskeyword-=(,),-,#
-" augroup END
-" set iskeyword+=-
-" set iskeyword+=#
-" set iskeyword+=(
-" set iskeyword+=)
+
 augroup HelpSettings
     " 清除本组内已有的自动命令，防止重复定义
     autocmd!
@@ -136,14 +115,6 @@ augroup HelpSettings
 
 augroup END
 
-" set auto bracket
-" inoremap ' ''<ESC>i
-" inoremap " ""<ESC>i
-" inoremap ( ()<ESC>i
-" inoremap [ []<ESC>i
-" iabbrev {i {<CR><CR>}<esc>ki<tab><BS>
-
-
 " delete one space when press backspace
 set softtabstop=0
 
@@ -155,9 +126,6 @@ set cursorline
 
 " auto comment setting
 autocmd FileType c set commentstring=//\ %s
-
-" " let vim use zsh
-" set shell=/bin/zsh\ -l
 
 " remap <esc>
 inoremap jk <esc>
@@ -186,7 +154,7 @@ function! s:VSetSearch(cmdtype)
   let @s = temp
 endfunction
 
-" new try for {} thing
+" auto { expand
 inoremap {<cr> {}<Left><CR><esc>O
 
 " fix when open matlab file read random char if it's Chinese
@@ -196,9 +164,6 @@ set fileencodings=ucs-bom,gbk,utf-8,latin1
 " open init.vim quickly
 nnoremap <leader>rc :tabedit ~/.config/nvim/init.vim<CR>
 
-" paste from OS easier, (has problem using nvim)
-" inoremap <silent> <c-v> <c-o>:set paste<cr><c-r>+<c-o>:set nopaste<cr>
-
 " " the gf search according to the path, this is the python lib's location on my
 " " mac
 " set path+=/opt/homebrew/Cellar/python@3.13/3.13.2/Frameworks/Python.framework/Versions/3.13/lib/python3.13
@@ -206,20 +171,10 @@ nnoremap <leader>rc :tabedit ~/.config/nvim/init.vim<CR>
 " set path+=/opt/homebrew/include
 " set path+=/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/usr/include/c++/v1
 
-" " settings for toggleterm
-" autocmd TermEnter term://*toggleterm#*
-"       \ tnoremap <silent><c-\> <Cmd>exe v:count1 . "ToggleTerm"<CR>
-" 
-" " By applying the mappings this way you can pass a count to your
-" " mapping to open a specific window.
-" " For example: 2<C-t> will open terminal 2
-" nnoremap <silent><c-\> <Cmd>exe v:count1 . "ToggleTerm"<CR>
-" inoremap <silent><c-\> <Esc><Cmd>exe v:count1 . "ToggleTerm"<CR>
-
 " ------------terminal mode settings
-" To map <Esc> to exit terminal-mode: >vim
+" To map <Esc> to exit terminal-mode
 tnoremap <Esc> <C-\><C-n>
-" map <A-e> to <esc>
+" map <M-e> to <esc>
 tnoremap <M-e> <Esc>
 " " To use `ALT+{h,j,k,l}` to navigate windows from any mode >vim
 tnoremap <M-h> <C-\><C-N><C-w>h
@@ -240,16 +195,6 @@ nnoremap H gT
 nnoremap L gt
 " ------------terminal mode settings
 
-" lua << EOF
-" require("toggleterm").setup{
-"   size = 20,
-"   open_mapping = [[<c-\>]],
-"   hide_numbers = true,
-"   direction = 'float',
-"   start_in_insert = true,
-" }
-" EOF
-" 
 lua << EOF
 require('mini.icons').setup()
 
