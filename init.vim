@@ -37,12 +37,16 @@ Plug 'rafamadriz/friendly-snippets'
 Plug 'echasnovski/mini.icons'
 Plug 'OXY2DEV/markview.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-context'
 
 " portal
 Plug 'cbochs/portal.nvim'
 " Optional dependencies
 Plug 'cbochs/grapple.nvim'
 Plug 'ThePrimeagen/harpoon'
+
+" symbol table
+Plug 'stevearc/aerial.nvim'
 call plug#end()
 
 
@@ -291,6 +295,21 @@ require'nvim-treesitter.configs'.setup {
     },
   },
 }
+-- require'treesitter-context'.setup{
+  -- enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+  -- multiwindow = false, -- Enable multiwindow support.
+  -- max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+  -- min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+  -- line_numbers = true,
+  -- multiline_threshold = 20, -- Maximum number of lines to show for a single context
+  -- trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+  -- mode = 'cursor',  -- Line used to calculate context. Choices: 'cursor', 'topline'
+  -- -- Separator between context and content. Should be a single character string, like '-'.
+  -- -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
+  -- separator = nil,
+  -- zindex = 20, -- The Z-index of the context window
+  -- on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
+-- }
 
 local telescope = require("telescope")
 
@@ -343,4 +362,14 @@ end
 
 vim.keymap.set('n', '<F5>', toggle_paste, { desc = 'Toggle paste mode' })
 
+-- aerial
+require("aerial").setup({
+  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+  on_attach = function(bufnr)
+    -- Jump forwards/backwards with '{' and '}'
+    vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+    vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+  end,
+})
+vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
 EOF
