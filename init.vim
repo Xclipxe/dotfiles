@@ -208,12 +208,14 @@ require("markview").setup({
     }
 })
 
+-- oil
 require("oil").setup({
     columns = {
         "size",
         "mtime",
     },
 })
+vim.keymap.set("n", "<leader>e.", "<cmd>e %:p:h<cr>", { noremap = true })
 
 EOF
 
@@ -295,6 +297,7 @@ require'nvim-treesitter.configs'.setup {
     },
   },
 }
+vim.cmd("hi link TreesitterContextBottom SpellCap")
 -- require'treesitter-context'.setup{
   -- enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
   -- multiwindow = false, -- Enable multiwindow support.
@@ -371,5 +374,8 @@ require("aerial").setup({
     vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
   end,
 })
-vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
+vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>", { noremap = true })
+
+-- misc
+vim.keymap.set("n", "<leader>tt", "<cmd>tab terminal<CR>", { noremap = true })
 EOF
