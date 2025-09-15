@@ -85,7 +85,7 @@ set smartindent
 set tabstop=4
 set shiftwidth=4
 set expandtab
-autocmd FileType c,cpp setlocal tabstop=4 shiftwidth=4 noexpandtab
+autocmd FileType c,cpp,dts setlocal tabstop=4 shiftwidth=4 noexpandtab
 
 " use colorscheme gruvbox
 syntax enable
@@ -100,6 +100,9 @@ set clipboard=unnamed
 
 " set tags path
 set tags=./.tags;,.tags;,./tags;,tags;
+
+" set path
+set path+=**
 
 augroup HelpSettings
     " 清除本组内已有的自动命令，防止重复定义
