@@ -90,6 +90,7 @@ autocmd FileType c,cpp,dts setlocal tabstop=4 shiftwidth=4 noexpandtab
 " use colorscheme gruvbox
 syntax enable
 set background=dark
+let g:gruvbox_contrast_dark="hard"
 colorscheme gruvbox
 
 " show current position
@@ -279,7 +280,7 @@ vim.keymap.set("n", "g[", "<Cmd>lua vim.diagnostic.goto_prev()<CR>", { noremap =
 -- treesitter config
 require'nvim-treesitter.configs'.setup {
     -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-  ensure_installed = { "c", "lua", "vim", "query", "markdown", "python"},
+  ensure_installed = { "c", "lua", "vim", "query", "markdown", "python", "asm"},
 -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
   highlight = {
