@@ -51,10 +51,6 @@ call plug#end()
 
 
 let mapleader = " "
-" Show line numbers.
-set number
-
-set relativenumber
 
 set laststatus=2
 
@@ -385,4 +381,6 @@ vim.keymap.set("n", "<leader>tt", "<cmd>tab terminal<CR>", { noremap = true })
 vim.opt.encoding = 'utf-8'
 vim.opt.fileencoding = 'utf-8'
 vim.opt.fileencodings = { 'utf-8', 'gbk', 'utf-16le', 'utf-16be', 'euc-jp', 'sjis', 'latin1' }
+vim.opt.number = true
+vim.opt.relativenumber = true
 EOF
