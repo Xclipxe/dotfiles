@@ -20,16 +20,8 @@ Plug 'vuciv/golf'
 " lsp
 Plug 'mason-org/mason.nvim'
 Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/nvim-cmp'
 
-" For vsnip users.
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip'
-
+" auto completion
 Plug 'saghen/blink.cmp', { 'tag': 'v1.5.0' } 
 Plug 'rafamadriz/friendly-snippets'
 
@@ -39,14 +31,10 @@ Plug 'OXY2DEV/markview.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-context'
 
-" portal
-Plug 'cbochs/portal.nvim'
-" Optional dependencies
-Plug 'cbochs/grapple.nvim'
-Plug 'ThePrimeagen/harpoon'
-
 " symbol table
 Plug 'stevearc/aerial.nvim'
+
+Plug 'sitiom/nvim-numbertoggle'
 call plug#end()
 
 
@@ -214,8 +202,14 @@ require("oil").setup({
         "size",
         "mtime",
     },
+    keymaps = {
+        ["gcd"] = {
+            "actions.cd",
+            desc = "change cwd to oil currently in",
+        }
+    }
 })
-vim.keymap.set("n", "<leader>e.", "<cmd>e %:p:h<cr>", { noremap = true })
+vim.keymap.set("n", "<leader>e.", "<cmd>lua require('oil').toggle_float()<CR>", { noremap = true })
 
 EOF
 
@@ -264,6 +258,26 @@ cmp.setup({
 local capabilities = require('blink.cmp').get_lsp_capabilities()
 local lspconfig = require('lspconfig')
 lspconfig['clangd'].setup({ capabilities = capabilities })
+lspconfig['lua_ls'].setup({ 
+    capabilities = capabilities,
+  settings = {
+    Lua = {
+      runtime = {
+        version = "LuaJIT",
+      },
+      diagnostics = {
+        globals = { "vim" },
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false,
+      },
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+})
 lspconfig['marksman'].setup({})
 
 -- lsp keymap
@@ -383,4 +397,9 @@ vim.opt.fileencoding = 'utf-8'
 vim.opt.fileencodings = { 'utf-8', 'gbk', 'utf-16le', 'utf-16be', 'euc-jp', 'sjis', 'latin1' }
 vim.opt.number = true
 vim.opt.relativenumber = true
+vim.api.nvim_create_user_command("ReloadFoo", function()
+  package.loaded["foo"] = nil
+  require("foo")
+  print("Reloaded foo.lua")
+end, {})
 EOF
