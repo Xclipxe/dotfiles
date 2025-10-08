@@ -165,7 +165,7 @@ nnoremap <leader>rc :tabedit ~/.config/nvim/init.vim<CR>
 
 " ------------terminal mode settings
 " To map <Esc> to exit terminal-mode
-tnoremap <Esc> <C-\><C-n>
+tnoremap <Esc><Esc> <C-\><C-n>
 " map <M-e> to <esc>
 tnoremap <M-e> <Esc>
 " " To use `ALT+{h,j,k,l}` to navigate windows from any mode >vim
