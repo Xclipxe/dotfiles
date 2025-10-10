@@ -332,6 +332,13 @@ local telescope = require("telescope")
 
 -- telescope
 telescope.setup({
+    defaults = {
+        mappings = {
+            n = {
+                ['dd'] = "delete_buffer"
+            },
+        },
+    }
 })
 
 local lga_actions = require("telescope-live-grep-args.actions")
@@ -357,11 +364,6 @@ vim.keymap.set('n', '<leader>ff', ":lua require('telescope.builtin').find_files(
 vim.keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
 vim.keymap.set('n', '<leader>fb', ":lua require('telescope.builtin').buffers()<CR>", { noremap = true })
 vim.keymap.set('n', '<leader>fh', ":lua require('telescope.builtin').help_tags()<CR>", { noremap = true })
-
--- portal bingdings
-vim.keymap.set("n", "<leader>o", "<cmd>Portal jumplist backward<cr>")
-vim.keymap.set("n", "<leader>i", "<cmd>Portal jumplist forward<cr>")
-
 
 vim.keymap.set("n", "cc", ":cclose<cr>")
 
