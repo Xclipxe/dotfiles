@@ -11,7 +11,7 @@ Plug 'morhetz/gruvbox'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
 Plug 'nvim-telescope/telescope-live-grep-args.nvim'
-" Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
+Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'justinmk/vim-sneak'
 Plug 'stevearc/oil.nvim'
@@ -19,7 +19,7 @@ Plug 'vuciv/golf'
 
 " lsp
 Plug 'mason-org/mason.nvim'
-Plug 'neovim/nvim-lspconfig'
+Plug 'neovim/nvim-lspconfig', { 'tag': 'v1.0.0' }
 
 " auto completion
 Plug 'saghen/blink.cmp', { 'tag': 'v1.5.0' } 
@@ -279,6 +279,7 @@ lspconfig['lua_ls'].setup({
   },
 })
 lspconfig['marksman'].setup({})
+lspconfig['pyright'].setup({ capabilities = capabilities })
 
 -- lsp keymap
 vim.keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true })
@@ -391,6 +392,11 @@ require("aerial").setup({
   end,
 })
 vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>", { noremap = true })
+
+-- toggleterm
+require("toggleterm").setup({})
+vim.keymap.set("n", "<c-\\>", "<cmd>ToggleTerm direction=float<cr>", { noremap = true })
+vim.keymap.set("t", "<c-\\>", "<cmd>ToggleTerm direction=float<cr>", { noremap = true })
 
 -- misc
 vim.keymap.set("n", "<leader>tt", "<cmd>tab terminal<CR>", { noremap = true })
