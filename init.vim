@@ -118,6 +118,7 @@ set cursorline
 
 " auto comment setting
 autocmd FileType c set commentstring=//\ %s
+autocmd FileType dts set commentstring=//\ %s
 
 " remap <esc>
 inoremap jk <esc>
@@ -279,7 +280,7 @@ lspconfig['lua_ls'].setup({
   },
 })
 lspconfig['marksman'].setup({})
-lspconfig['pyright'].setup({ capabilities = capabilities })
+lspconfig['jedi'].setup({ capabilities = capabilities })
 
 -- lsp keymap
 vim.keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true })
@@ -405,9 +406,17 @@ vim.opt.fileencoding = 'utf-8'
 vim.opt.fileencodings = { 'utf-8', 'gbk', 'utf-16le', 'utf-16be', 'euc-jp', 'sjis', 'latin1' }
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.api.nvim_create_user_command("ReloadFoo", function()
-  package.loaded["foo"] = nil
-  require("foo")
-  print("Reloaded foo.lua")
-end, {})
+-- vim.api.nvim_create_user_command("ReloadFoo", function()
+--   package.loaded["foo"] = nil
+--   require("foo")
+--   print("Reloaded foo.lua")
+-- end, {})
+
+vim.api.nvim_create_autocmd("TermOpen", {
+  pattern = "*",
+  callback = function()
+    vim.opt_local.number = false
+    vim.opt_local.relativenumber = false
+  end
+})
 EOF
