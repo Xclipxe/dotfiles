@@ -16,6 +16,7 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'justinmk/vim-sneak'
 Plug 'stevearc/oil.nvim'
 Plug 'vuciv/golf'
+Plug 'ellisonleao/gruvbox.nvim'
 
 " lsp
 Plug 'mason-org/mason.nvim'
@@ -207,7 +208,11 @@ require("oil").setup({
         ["gcd"] = {
             "actions.cd",
             desc = "change cwd to oil currently in",
-        }
+        },
+        ["gt"] = {
+            "actions.open_terminal",
+            desc = "open a terminal in current directory",
+        },
     }
 })
 vim.keymap.set("n", "<leader>e.", "<cmd>lua require('oil').toggle_float()<CR>", { noremap = true })
@@ -280,7 +285,8 @@ lspconfig['lua_ls'].setup({
   },
 })
 lspconfig['marksman'].setup({})
-lspconfig['jedi'].setup({ capabilities = capabilities })
+lspconfig.pylsp.setup({ capabilities = capabilities })
+-- lspconfig['jedi'].setup({ capabilities = capabilities })
 
 -- lsp keymap
 vim.keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true })
