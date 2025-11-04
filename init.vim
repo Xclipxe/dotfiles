@@ -412,6 +412,7 @@ vim.opt.fileencoding = 'utf-8'
 vim.opt.fileencodings = { 'utf-8', 'gbk', 'utf-16le', 'utf-16be', 'euc-jp', 'sjis', 'latin1' }
 vim.opt.number = true
 vim.opt.relativenumber = true
+vim.opt.wrap = false
 -- vim.api.nvim_create_user_command("ReloadFoo", function()
 --   package.loaded["foo"] = nil
 --   require("foo")
