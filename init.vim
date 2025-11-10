@@ -16,7 +16,7 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'justinmk/vim-sneak'
 Plug 'stevearc/oil.nvim'
 Plug 'vuciv/golf'
-Plug 'ellisonleao/gruvbox.nvim'
+Plug 'aphroteus/vim-uefi'
 
 " lsp
 Plug 'mason-org/mason.nvim'
@@ -412,6 +412,7 @@ vim.opt.fileencoding = 'utf-8'
 vim.opt.fileencodings = { 'utf-8', 'gbk', 'utf-16le', 'utf-16be', 'euc-jp', 'sjis', 'latin1' }
 vim.opt.number = true
 vim.opt.relativenumber = true
+-- if wrap markview won't render middle lines of table
 vim.opt.wrap = false
 -- vim.api.nvim_create_user_command("ReloadFoo", function()
 --   package.loaded["foo"] = nil
