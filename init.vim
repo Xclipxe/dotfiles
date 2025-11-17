@@ -36,6 +36,7 @@ Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'stevearc/aerial.nvim'
 
 Plug 'sitiom/nvim-numbertoggle'
+Plug 'nvim-lualine/lualine.nvim'
 call plug#end()
 
 
@@ -404,6 +405,11 @@ vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>", { noremap = true })
 require("toggleterm").setup({})
 vim.keymap.set("n", "<c-\\>", "<cmd>ToggleTerm direction=float<cr>", { noremap = true })
 vim.keymap.set("t", "<c-\\>", "<cmd>ToggleTerm direction=float<cr>", { noremap = true })
+
+-- lualine
+require('lualine').setup {
+  options = { theme  = 'gruvbox' },
+}
 
 -- misc
 vim.keymap.set("n", "<leader>tt", "<cmd>tab terminal<CR>", { noremap = true })
