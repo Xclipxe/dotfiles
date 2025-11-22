@@ -119,8 +119,8 @@ set scrolloff=5
 set cursorline
 
 " auto comment setting
-autocmd FileType c set commentstring=//\ %s
-autocmd FileType dts set commentstring=//\ %s
+" autocmd FileType c set commentstring=//\ %s
+autocmd FileType dts set commentstring=/*\ %s\ */
 
 " remap <esc>
 inoremap jk <esc>
