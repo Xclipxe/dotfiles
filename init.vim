@@ -449,6 +449,7 @@ vim.opt.wrap = false
 --   print("Reloaded foo.lua")
 -- end, {})
 
+-- terminal mode doesn't show line number
 vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "*",
   callback = function()
@@ -456,4 +457,29 @@ vim.api.nvim_create_autocmd("TermOpen", {
     vim.opt_local.relativenumber = false
   end
 })
+
+-- syntax highlight support for aslc
+vim.filetype.add({
+  extension = {
+    aslc = "aslc",
+  },
+})
+
+-- add file aslc highlight support
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "aslc",
+  callback = function()
+    vim.opt_local.syntax = "c"
+    vim.opt_local.commentstring = "// %s"
+  end,
+})
+
+-- copy path to clipboard
+vim.api.nvim_create_user_command('Copypath', function()
+    local path = vim.fn.expand("%")
+    
+    vim.fn.setreg("+", path)
+    
+    vim.notify('Copied relative path: ' .. path, vim.log.levels.INFO)
+end, { desc = "Copy relative file path to clipboard" })
 EOF
