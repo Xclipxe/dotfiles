@@ -210,10 +210,7 @@ require("oil").setup({
             "actions.cd",
             desc = "change cwd to oil currently in",
         },
-        ["gt"] = {
-            "actions.open_terminal",
-            desc = "open a terminal in current directory",
-        },
+        ["<C-v>"] = { "actions.select", opts = { vertical = true } },
     }
 })
 vim.keymap.set("n", "<leader>e.", "<cmd>lua require('oil').toggle_float()<CR>", { noremap = true })
