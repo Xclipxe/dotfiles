@@ -440,6 +440,7 @@ vim.opt.relativenumber = true
 -- if wrap markview won't render middle lines of table
 vim.opt.wrap = false
 vim.keymap.set("n", "cc", ":cclose<cr>")
+vim.opt.termguicolors = true
 
 -- vim.api.nvim_create_user_command("ReloadFoo", function()
 --   package.loaded["foo"] = nil
@@ -490,7 +491,7 @@ require("fzf-lua").setup {
   }
 }
 vim.keymap.set("n", "<leader>ff", "<cmd>FzfLua files<CR>", { noremap = true })
-vim.keymap.set("n", "<leader>fg", "<cmd>FzfLua live_grep<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>fg", "<cmd>FzfLua live_grep_native<CR>", { noremap = true })
 vim.keymap.set("n", "<leader>fb", "<cmd>FzfLua buffers<CR>", { noremap = true })
 vim.keymap.set("n", "<leader>fr", "<cmd>FzfLua resume<CR>", { noremap = true })
 EOF
