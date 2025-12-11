@@ -17,6 +17,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'stevearc/oil.nvim'
 Plug 'vuciv/golf'
 Plug 'aphroteus/vim-uefi'
+Plug 'ibhagwan/fzf-lua'
 
 " lsp
 Plug 'mason-org/mason.nvim'
@@ -334,44 +335,42 @@ vim.cmd("hi link TreesitterContextBottom SpellCap")
   -- on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
 -- }
 
-local telescope = require("telescope")
-
--- telescope
-telescope.setup({
-    defaults = {
-        mappings = {
-            n = {
-                ['dd'] = "delete_buffer"
-            },
-        },
-    }
-})
-
-local lga_actions = require("telescope-live-grep-args.actions")
-
-telescope.setup {
-  extensions = {
-    live_grep_args = {
-      auto_quoting = true, -- enable/disable auto-quoting
-      -- define mappings, e.g.
-      mappings = { -- extend mappings
-        i = {
-            ["<C-k>"] = lga_actions.quote_prompt({ postfix = " -t" }),
-        },
-      },
-    }
-  }
-}
-
--- then load the extension
-telescope.load_extension("live_grep_args")
-
-vim.keymap.set('n', '<leader>ff', ":lua require('telescope.builtin').find_files()<CR>", { noremap = true })
-vim.keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
-vim.keymap.set('n', '<leader>fb', ":lua require('telescope.builtin').buffers()<CR>", { noremap = true })
-vim.keymap.set('n', '<leader>fh', ":lua require('telescope.builtin').help_tags()<CR>", { noremap = true })
-
-vim.keymap.set("n", "cc", ":cclose<cr>")
+-- local telescope = require("telescope")
+-- 
+-- -- telescope
+-- telescope.setup({
+--     defaults = {
+--         mappings = {
+--             n = {
+--                 ['dd'] = "delete_buffer"
+--             },
+--         },
+--     }
+-- })
+-- 
+-- local lga_actions = require("telescope-live-grep-args.actions")
+-- 
+-- telescope.setup {
+--   extensions = {
+--     live_grep_args = {
+--       auto_quoting = true, -- enable/disable auto-quoting
+--       -- define mappings, e.g.
+--       mappings = { -- extend mappings
+--         i = {
+--             ["<C-k>"] = lga_actions.quote_prompt({ postfix = " -t" }),
+--         },
+--       },
+--     }
+--   }
+-- }
+-- 
+-- -- then load the extension
+-- telescope.load_extension("live_grep_args")
+-- 
+-- vim.keymap.set('n', '<leader>ff', ":lua require('telescope.builtin').find_files()<CR>", { noremap = true })
+-- vim.keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
+-- vim.keymap.set('n', '<leader>fb', ":lua require('telescope.builtin').buffers()<CR>", { noremap = true })
+-- vim.keymap.set('n', '<leader>fh', ":lua require('telescope.builtin').help_tags()<CR>", { noremap = true })
 
 
 -- toggle paste mode
@@ -440,6 +439,8 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 -- if wrap markview won't render middle lines of table
 vim.opt.wrap = false
+vim.keymap.set("n", "cc", ":cclose<cr>")
+
 -- vim.api.nvim_create_user_command("ReloadFoo", function()
 --   package.loaded["foo"] = nil
 --   require("foo")
@@ -472,11 +473,24 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- copy path to clipboard
-vim.api.nvim_create_user_command('Copypath', function()
+vim.api.nvim_create_user_command('Path', function()
     local path = vim.fn.expand("%")
     
     vim.fn.setreg("+", path)
     
     vim.notify('Copied relative path: ' .. path, vim.log.levels.INFO)
 end, { desc = "Copy relative file path to clipboard" })
+
+-- fzf-lua
+require("fzf-lua").setup {
+  winopts = {
+    on_create = function()
+      vim.keymap.set("t", "<C-r>", [['<C-\><C-N>"'.nr2char(getchar()).'pi']], { expr = true, buffer = true })
+    end,
+  }
+}
+vim.keymap.set("n", "<leader>ff", "<cmd>FzfLua files<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>fg", "<cmd>FzfLua live_grep<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>fb", "<cmd>FzfLua buffers<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>fr", "<cmd>FzfLua resume<CR>", { noremap = true })
 EOF
