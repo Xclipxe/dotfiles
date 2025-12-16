@@ -9,8 +9,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'morhetz/gruvbox'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
-Plug 'nvim-telescope/telescope-live-grep-args.nvim'
 Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'justinmk/vim-sneak'
@@ -18,6 +16,8 @@ Plug 'stevearc/oil.nvim'
 Plug 'vuciv/golf'
 Plug 'aphroteus/vim-uefi'
 Plug 'ibhagwan/fzf-lua'
+Plug 'nvim-treesitter/nvim-treesitter', {'tag' : 'v0.10.0'}
+Plug 'nvim-treesitter/nvim-treesitter-context'
 
 " lsp
 Plug 'mason-org/mason.nvim'
@@ -30,8 +30,6 @@ Plug 'rafamadriz/friendly-snippets'
 " markdown preview
 Plug 'echasnovski/mini.icons'
 Plug 'OXY2DEV/markview.nvim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/nvim-treesitter-context'
 
 " symbol table
 Plug 'stevearc/aerial.nvim'
@@ -122,7 +120,7 @@ set cursorline
 " auto comment setting
 " autocmd FileType c set commentstring=//\ %s
 autocmd FileType dts set commentstring=/*\ %s\ */
-
+autocmd FileType asl set commentstring=//\ %s
 " remap <esc>
 inoremap jk <esc>
 
@@ -294,10 +292,15 @@ vim.keymap.set("n", "gn", "<Cmd>lua vim.lsp.buf.rename()<CR>", { noremap = true 
 vim.keymap.set("n", "g]", "<Cmd>lua vim.diagnostic.goto_next()<CR>", { noremap = true })
 vim.keymap.set("n", "g[", "<Cmd>lua vim.diagnostic.goto_prev()<CR>", { noremap = true })
 
+--local status, treesitter = pcall(require, "nvim-treesitter.configs")
+--if not status then
+--    return
+--end
+
 -- treesitter config
 require'nvim-treesitter.configs'.setup {
     -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-  ensure_installed = { "c", "lua", "vim", "query", "markdown", "python", "asm"},
+  ensure_installed = { "c", "lua", "vim", "query", "markdown", "python"},
 -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
   highlight = {
@@ -334,44 +337,6 @@ vim.cmd("hi link TreesitterContextBottom SpellCap")
   -- zindex = 20, -- The Z-index of the context window
   -- on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
 -- }
-
--- local telescope = require("telescope")
--- 
--- -- telescope
--- telescope.setup({
---     defaults = {
---         mappings = {
---             n = {
---                 ['dd'] = "delete_buffer"
---             },
---         },
---     }
--- })
--- 
--- local lga_actions = require("telescope-live-grep-args.actions")
--- 
--- telescope.setup {
---   extensions = {
---     live_grep_args = {
---       auto_quoting = true, -- enable/disable auto-quoting
---       -- define mappings, e.g.
---       mappings = { -- extend mappings
---         i = {
---             ["<C-k>"] = lga_actions.quote_prompt({ postfix = " -t" }),
---         },
---       },
---     }
---   }
--- }
--- 
--- -- then load the extension
--- telescope.load_extension("live_grep_args")
--- 
--- vim.keymap.set('n', '<leader>ff', ":lua require('telescope.builtin').find_files()<CR>", { noremap = true })
--- vim.keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
--- vim.keymap.set('n', '<leader>fb', ":lua require('telescope.builtin').buffers()<CR>", { noremap = true })
--- vim.keymap.set('n', '<leader>fh', ":lua require('telescope.builtin').help_tags()<CR>", { noremap = true })
-
 
 -- toggle paste mode
 local toggle_paste = function()
@@ -491,7 +456,7 @@ require("fzf-lua").setup {
   }
 }
 vim.keymap.set("n", "<leader>ff", "<cmd>FzfLua files<CR>", { noremap = true })
-vim.keymap.set("n", "<leader>fg", "<cmd>FzfLua live_grep_native<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>fg", "<cmd>FzfLua live_grep<CR>", { noremap = true })
 vim.keymap.set("n", "<leader>fb", "<cmd>FzfLua buffers<CR>", { noremap = true })
 vim.keymap.set("n", "<leader>fr", "<cmd>FzfLua resume<CR>", { noremap = true })
 EOF
