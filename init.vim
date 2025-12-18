@@ -24,7 +24,7 @@ Plug 'mason-org/mason.nvim'
 Plug 'neovim/nvim-lspconfig', { 'tag': 'v1.0.0' }
 
 " auto completion
-Plug 'saghen/blink.cmp', { 'tag': 'v1.5.0' } 
+Plug 'saghen/blink.cmp', { 'tag': 'v1.8.0' }
 Plug 'rafamadriz/friendly-snippets'
 
 " markdown preview
