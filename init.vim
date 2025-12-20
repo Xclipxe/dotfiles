@@ -233,6 +233,7 @@ cmp.setup({
         ['<C-space>'] = false,
         ['<C-j>'] ={ 'select_and_accept' },
         ['<C-k>'] = { 'show', 'show_documentation', 'hide_documentation' },
+        ['<C-s>'] = { 'show_signature', 'hide_signature', 'fallback' },
     },
 
     appearance = {
@@ -256,6 +257,12 @@ cmp.setup({
 
     fuzzy = {
         implementation = "prefer_rust_with_warning",
+    },
+
+    signature = {
+        window = {
+            border = 'rounded',
+        }
     },
 })
 
