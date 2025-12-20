@@ -213,6 +213,7 @@ require("oil").setup({
     }
 })
 vim.keymap.set("n", "<leader>e.", "<cmd>lua require('oil').toggle_float()<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>ec", "<cmd>lua require('oil').toggle_float(vim.fn.getcwd())<CR>", { noremap = true })
 
 EOF
 
