@@ -210,7 +210,11 @@ require("oil").setup({
             desc = "change cwd to oil currently in",
         },
         ["<C-v>"] = { "actions.select", opts = { vertical = true } },
-    }
+    },
+    float = {
+        border = "rounded",
+    },
+
 })
 vim.keymap.set("n", "<leader>e.", "<cmd>lua require('oil').toggle_float()<CR>", { noremap = true })
 vim.keymap.set("n", "<leader>ec", "<cmd>lua require('oil').toggle_float(vim.fn.getcwd())<CR>", { noremap = true })
@@ -261,7 +265,7 @@ cmp.setup({
 
     signature = {
         window = {
-            border = 'rounded',
+            border = 'bold',
         }
     },
 })
