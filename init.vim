@@ -1,6 +1,3 @@
-" plugin vundle
-set nocompatible              " be iMproved, required
-filetype off                  " required
 call plug#begin()
 
 " List your plugins here
@@ -38,21 +35,9 @@ Plug 'sitiom/nvim-numbertoggle'
 Plug 'nvim-lualine/lualine.nvim'
 call plug#end()
 
-
 let mapleader = " "
 
-set laststatus=2
-
-" The backspace key has slightly unintuitive behavior by default. For example,
-" by default, you can't backspace before the insertion point set with 'i'.
-" This configuration makes backspace behave more reasonably, in that you can
-" backspace over anything.
-set backspace=indent,eol,start
-
-set hidden
-
 set ignorecase
-set smartcase
 
 set incsearch
 
@@ -60,12 +45,6 @@ set incsearch
 nmap Q <Nop> 
 " 'Q' in normal mode enters Ex mode. You almost never want this.
 
-" Disable audible bell because it's annoying.
-set noerrorbells visualbell t_vb=
-
-set mouse+=a
-
-set autoindent
 set smartindent
 set tabstop=4
 set shiftwidth=4
@@ -73,13 +52,9 @@ set expandtab
 autocmd FileType c,cpp,dts setlocal tabstop=4 shiftwidth=4 noexpandtab
 
 " use colorscheme gruvbox
-syntax enable
 set background=dark
 let g:gruvbox_contrast_dark="hard"
 colorscheme gruvbox
-
-" show current position
-set ruler
 
 " allow copy to clipboard, so that you can paste to other apps
 set clipboard=unnamed
@@ -91,21 +66,8 @@ set tags=./.tags;,.tags;,./tags;,tags;
 set path+=**
 
 augroup HelpSettings
-    " 清除本组内已有的自动命令，防止重复定义
     autocmd!
-
-    " 当文件类型是 help 时
-    " 修改当前 buffer 的 iskeyword 选项
-    " 这里以添加 '-' 字符为例，你可以根据需要修改
-    " 比如想把 '-' 添加到现有值中：
     autocmd FileType help setlocal iskeyword+=-,#,(,)
-
-    " 如果你想完全替换 iskeyword 的值，可以使用：
-    " autocmd FileType help setlocal iskeyword=@,48-57,_,192-255,-
-
-    " 你可以根据需要添加其他字符或范围
-    " autocmd FileType help setlocal iskeyword+=-,/
-
 augroup END
 
 " delete one space when press backspace
@@ -127,9 +89,6 @@ inoremap jk <esc>
 " better ctrl d and ctrl u
 noremap <C-d> <C-d>zz
 noremap <C-u> <C-u>zz
-
-" highlight when use *
-set hls
 
 " default use demical when <C-a>
 set nrformats=
@@ -158,14 +117,7 @@ set fileencodings=ucs-bom,gbk,utf-8,latin1
 " open init.vim quickly
 nnoremap <leader>rc :tabedit ~/.config/nvim/init.vim<CR>
 
-" " the gf search according to the path, this is the python lib's location on my
-" " mac
-" set path+=/opt/homebrew/Cellar/python@3.13/3.13.2/Frameworks/Python.framework/Versions/3.13/lib/python3.13
-" set path+=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include
-" set path+=/opt/homebrew/include
-" set path+=/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/usr/include/c++/v1
-
-" ------------terminal mode settings
+" terminal mode settings
 " To map <Esc> to exit terminal-mode
 tnoremap <Esc><Esc> <C-\><C-n>
 " map <M-e> to <esc>
@@ -187,7 +139,6 @@ nnoremap <M-l> <C-w>l
 " map tab navigate
 nnoremap H gT
 nnoremap L gt
-" ------------terminal mode settings
 
 lua << EOF
 require('mini.icons').setup()
@@ -237,7 +188,7 @@ cmp.setup({
         ['<C-space>'] = false,
         ['<C-j>'] ={ 'select_and_accept' },
         ['<C-k>'] = { 'show', 'show_documentation', 'hide_documentation' },
-        ['<C-s>'] = { 'show_signature', 'hide_signature', 'fallback' },
+        ['<C-f>'] = { 'show_signature', 'hide_signature', 'fallback' },
     },
 
     appearance = {
@@ -474,5 +425,4 @@ vim.keymap.set("n", "<leader>fb", "<cmd>FzfLua buffers<CR>", { noremap = true })
 vim.keymap.set("n", "<leader>fr", "<cmd>FzfLua resume<CR>", { noremap = true })
 vim.keymap.set("n", "<leader>fh", "<cmd>FzfLua helptags<CR>", { noremap = true })
 vim.keymap.set("n", "<leader>fj", "<cmd>FzfLua jumps<CR>", { noremap = true })
-
 EOF
