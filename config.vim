@@ -115,7 +115,7 @@ inoremap {<cr> {}<Left><CR><esc>O
 set fileencodings=ucs-bom,gbk,utf-8,latin1
 
 " open init.vim quickly
-nnoremap <leader>rc :tabedit ~/.config/nvim/init.vim<CR>
+nnoremap <leader>rc :tabedit ~/.config/nvim/init.lua<CR>
 
 " terminal mode settings
 " To map <Esc> to exit terminal-mode
