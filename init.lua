@@ -81,7 +81,7 @@ cmp.setup({
 local capabilities = require('blink.cmp').get_lsp_capabilities()
 local lspconfig = require('lspconfig')
 lspconfig['clangd'].setup({ capabilities = capabilities })
-lspconfig['lua_ls'].setup({ 
+lspconfig['lua_ls'].setup({
     capabilities = capabilities,
   settings = {
     Lua = {
@@ -201,7 +201,6 @@ require('lualine').setup {
                                  -- 2: Absolute path
                                  -- 3: Absolute path, with tilde as the home directory
                                  -- 4: Filename and parent dir, with tilde as the home directory
-  
         shorting_target = 40,    -- Shortens path to leave 40 spaces in the window
                                  -- for other components. (terrible name, any suggestions?)
         symbols = {
@@ -215,6 +214,21 @@ require('lualine').setup {
   }
 }
 
+-- fzf-lua
+require("fzf-lua").setup {
+  winopts = {
+    on_create = function()
+      vim.keymap.set("t", "<C-r>", [['<C-\><C-N>"'.nr2char(getchar()).'pi']], { expr = true, buffer = true })
+    end,
+  }
+}
+
+vim.keymap.set("n", "<leader>ff", "<cmd>FzfLua files<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>fg", "<cmd>FzfLua live_grep<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>fb", "<cmd>FzfLua buffers<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>fr", "<cmd>FzfLua resume<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>fh", "<cmd>FzfLua helptags<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>fj", "<cmd>FzfLua jumps<CR>", { noremap = true })
 -- misc
 vim.keymap.set("n", "<leader>tt", "<cmd>tab terminal<CR>", { noremap = true })
 vim.opt.encoding = 'utf-8'
@@ -267,18 +281,3 @@ vim.api.nvim_create_user_command('Path', function()
     vim.notify('Copied relative path: ' .. path, vim.log.levels.INFO)
 end, { desc = "Copy relative file path to clipboard" })
 
--- fzf-lua
-require("fzf-lua").setup {
-  winopts = {
-    on_create = function()
-      vim.keymap.set("t", "<C-r>", [['<C-\><C-N>"'.nr2char(getchar()).'pi']], { expr = true, buffer = true })
-    end,
-  }
-}
-
-vim.keymap.set("n", "<leader>ff", "<cmd>FzfLua files<CR>", { noremap = true })
-vim.keymap.set("n", "<leader>fg", "<cmd>FzfLua live_grep<CR>", { noremap = true })
-vim.keymap.set("n", "<leader>fb", "<cmd>FzfLua buffers<CR>", { noremap = true })
-vim.keymap.set("n", "<leader>fr", "<cmd>FzfLua resume<CR>", { noremap = true })
-vim.keymap.set("n", "<leader>fh", "<cmd>FzfLua helptags<CR>", { noremap = true })
-vim.keymap.set("n", "<leader>fj", "<cmd>FzfLua jumps<CR>", { noremap = true })
