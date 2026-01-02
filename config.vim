@@ -49,7 +49,8 @@ set smartindent
 set tabstop=4
 set shiftwidth=4
 set expandtab
-autocmd FileType c,cpp,dts setlocal tabstop=4 shiftwidth=4 noexpandtab
+autocmd FileType c,cpp,dts setlocal shiftwidth=4 noexpandtab
+autocmd FileType c setlocal tabstop=8 shiftwidth=8
 
 " use colorscheme gruvbox
 set background=dark
