@@ -21,7 +21,10 @@ Plug 'mason-org/mason.nvim'
 Plug 'neovim/nvim-lspconfig', { 'tag': 'v1.0.0' }
 
 " auto completion
-Plug 'saghen/blink.cmp', { 'tag': 'v1.8.0' }
+" somethings may goes wrong if press <C-p> to the completion menu
+" rm blink and its dependency, remove .local/share/nvim/blink
+" install blink, remember to add a tag
+Plug 'saghen/blink.cmp', { 'tag': 'v1.8.0' } " always add a tag
 Plug 'rafamadriz/friendly-snippets'
 
 " markdown preview
