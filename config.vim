@@ -15,6 +15,9 @@ Plug 'aphroteus/vim-uefi'
 Plug 'ibhagwan/fzf-lua'
 Plug 'nvim-treesitter/nvim-treesitter', {'tag' : 'v0.10.0'}
 Plug 'nvim-treesitter/nvim-treesitter-context'
+Plug 'sitiom/nvim-numbertoggle'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'nvim-zh/colorful-winsep.nvim'
 
 " lsp
 Plug 'mason-org/mason.nvim'
@@ -34,8 +37,6 @@ Plug 'OXY2DEV/markview.nvim'
 " symbol table
 Plug 'stevearc/aerial.nvim'
 
-Plug 'sitiom/nvim-numbertoggle'
-Plug 'nvim-lualine/lualine.nvim'
 call plug#end()
 
 let mapleader = " "
