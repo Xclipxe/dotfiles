@@ -18,6 +18,7 @@ Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'sitiom/nvim-numbertoggle'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-zh/colorful-winsep.nvim'
+Plug 'tpope/vim-fugitive'
 
 " lsp
 Plug 'mason-org/mason.nvim'
