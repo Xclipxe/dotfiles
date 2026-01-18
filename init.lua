@@ -281,9 +281,9 @@ vim.api.nvim_create_autocmd("FileType", {
 -- copy path to clipboard
 vim.api.nvim_create_user_command('Path', function()
     local path = vim.fn.expand("%")
-    
+
     vim.fn.setreg("+", path)
-    
+
     vim.notify('Copied relative path: ' .. path, vim.log.levels.INFO)
 end, { desc = "Copy relative file path to clipboard" })
 
