@@ -8,7 +8,7 @@ Plug 'morhetz/gruvbox'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-Plug 'justinmk/vim-sneak'
+" Plug 'justinmk/vim-sneak'
 Plug 'stevearc/oil.nvim'
 Plug 'vuciv/golf'
 Plug 'aphroteus/vim-uefi'
@@ -19,6 +19,7 @@ Plug 'sitiom/nvim-numbertoggle'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-zh/colorful-winsep.nvim'
 Plug 'tpope/vim-fugitive'
+Plug 'folke/flash.nvim'
 
 " lsp
 Plug 'mason-org/mason.nvim'
@@ -54,8 +55,7 @@ set smartindent
 set tabstop=4
 set shiftwidth=4
 set expandtab
-autocmd FileType c,cpp,dts setlocal shiftwidth=4 noexpandtab
-autocmd FileType c setlocal tabstop=8 shiftwidth=8
+autocmd FileType c,cpp,dts setlocal shiftwidth=8 tabstop=8 noexpandtab
 
 " use colorscheme gruvbox
 set background=dark
@@ -87,6 +87,7 @@ set cursorline
 
 " auto comment setting
 " autocmd FileType c set commentstring=//\ %s
+autocmd FileType c set commentstring=/*\ %s\ */
 autocmd FileType dts set commentstring=/*\ %s\ */
 autocmd FileType asl set commentstring=//\ %s
 " remap <esc>

@@ -229,6 +229,7 @@ vim.keymap.set("n", "<leader>fb", "<cmd>FzfLua buffers<CR>", { noremap = true })
 vim.keymap.set("n", "<leader>fr", "<cmd>FzfLua resume<CR>", { noremap = true })
 vim.keymap.set("n", "<leader>fh", "<cmd>FzfLua helptags<CR>", { noremap = true })
 vim.keymap.set("n", "<leader>fj", "<cmd>FzfLua jumps<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>fm", "<cmd>FzfLua marks<CR>", { noremap = true })
 
 -- window separator
 require("colorful-winsep").setup {
