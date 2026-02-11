@@ -236,6 +236,26 @@ require("colorful-winsep").setup {
 
 }
 
+-- fugitive
+local function toggle_fugitive_vertical()
+    local fugitive_win = nil
+    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+        local buf = vim.api.nvim_win_get_buf(win)
+        if vim.bo[buf].filetype == 'fugitive' then
+            fugitive_win = win
+            break
+        end
+    end
+
+    if fugitive_win then
+        vim.api.nvim_win_close(fugitive_win, false)
+    else
+        vim.cmd('vertical Git')
+    end
+end
+
+vim.keymap.set('n', '<leader>gg', toggle_fugitive_vertical, { desc = 'Toggle Fugitive Vertical' })
+
 -- misc
 vim.keymap.set("n", "<leader>tt", "<cmd>tab terminal<CR>", { noremap = true })
 vim.opt.encoding = 'utf-8'
