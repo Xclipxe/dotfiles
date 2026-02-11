@@ -4,6 +4,7 @@ call plug#begin()
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-fugitive'
 Plug 'morhetz/gruvbox'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
@@ -18,7 +19,6 @@ Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'sitiom/nvim-numbertoggle'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-zh/colorful-winsep.nvim'
-Plug 'tpope/vim-fugitive'
 Plug 'folke/flash.nvim'
 
 " lsp
