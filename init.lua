@@ -254,7 +254,45 @@ local function toggle_fugitive_vertical()
     end
 end
 
+local function toggle_fugitive_blame()
+    local fugitive_win = nil
+    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+        local buf = vim.api.nvim_win_get_buf(win)
+        if vim.bo[buf].filetype == 'fugitiveblame' then
+            fugitive_win = win
+            break
+        end
+    end
+
+    if fugitive_win then
+        vim.api.nvim_win_close(fugitive_win, false)
+    else
+        vim.cmd('G blame')
+    end
+end
+
+local function toggle_fugitive_log()
+    local fugitive_win = nil
+    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+        local buf = vim.api.nvim_win_get_buf(win)
+        if vim.bo[buf].filetype == 'git' then
+            fugitive_win = win
+            break
+        end
+    end
+
+    if fugitive_win then
+        vim.api.nvim_win_close(fugitive_win, false)
+    else
+        vim.cmd('G log -50 --decorate')
+    end
+end
 vim.keymap.set('n', '<leader>gg', toggle_fugitive_vertical, { desc = 'Toggle Fugitive Vertical' })
+vim.keymap.set('n', '<leader>gb', toggle_fugitive_blame, { desc = 'Toggle Fugitive Vertical' })
+vim.keymap.set('n', '<leader>gl', toggle_fugitive_log, { desc = 'Toggle Fugitive Vertical' })
+
+-- scope
+require("scope").setup({})
 
 -- misc
 vim.keymap.set("n", "<leader>tt", "<cmd>tab terminal<CR>", { noremap = true })

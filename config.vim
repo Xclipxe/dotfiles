@@ -11,7 +11,6 @@ Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 " Plug 'justinmk/vim-sneak'
 Plug 'stevearc/oil.nvim'
-Plug 'vuciv/golf'
 Plug 'aphroteus/vim-uefi'
 Plug 'ibhagwan/fzf-lua'
 Plug 'nvim-treesitter/nvim-treesitter', {'tag' : 'v0.10.0'}
@@ -20,6 +19,7 @@ Plug 'sitiom/nvim-numbertoggle'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-zh/colorful-winsep.nvim'
 Plug 'folke/flash.nvim'
+Plug 'tiagovla/scope.nvim'
 
 " lsp
 Plug 'mason-org/mason.nvim'
@@ -144,6 +144,6 @@ nnoremap <M-k> <C-w>k
 nnoremap <M-l> <C-w>l
 
 " map tab navigate
-nnoremap H gT
-nnoremap L gt
+nnoremap [[ gT
+nnoremap ]] gt
 
