@@ -189,7 +189,16 @@ vim.keymap.set("t", "<c-\\>", "<cmd>ToggleTerm direction=float<cr>", { noremap =
 
 -- lualine
 require('lualine').setup {
-  options = { theme  = 'gruvbox' },
+  options = {
+      theme  = 'gruvbox',
+      globalstatus = true,
+  },
+  winbar = {
+      lualine_c = {'filename'},
+  },
+  inactive_winbar = {
+      lualine_c = {'filename'},
+  },
   sections = {
     lualine_c = {
       {
