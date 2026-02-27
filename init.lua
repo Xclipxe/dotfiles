@@ -193,12 +193,12 @@ require('lualine').setup {
       theme  = 'gruvbox',
       globalstatus = true,
   },
-  winbar = {
-      lualine_c = {'filename'},
-  },
-  inactive_winbar = {
-      lualine_c = {'filename'},
-  },
+  -- winbar = {
+  --     lualine_c = {'filename'},
+  -- },
+  -- inactive_winbar = {
+  --     lualine_c = {'filename'},
+  -- },
   sections = {
     lualine_c = {
       {
@@ -302,6 +302,11 @@ vim.keymap.set('n', '<leader>gl', toggle_fugitive_log, { desc = 'Toggle Fugitive
 
 -- scope
 require("scope").setup({})
+
+-- flash
+require("flash").setup({
+})
+vim.keymap.set({ "n", "x", "o" }, "s", function() require("flash").jump() end, { desc = "Flash Jump" })
 
 -- misc
 vim.keymap.set("n", "<leader>tt", "<cmd>tab terminal<CR>", { noremap = true })
