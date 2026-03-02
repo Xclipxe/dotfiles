@@ -104,6 +104,7 @@ lspconfig['lua_ls'].setup({
 lspconfig['marksman'].setup({})
 lspconfig.pylsp.setup({ capabilities = capabilities })
 -- lspconfig['jedi'].setup({ capabilities = capabilities })
+lspconfig['checkmake'].setup({})
 
 -- lsp keymap
 vim.keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true })
@@ -305,6 +306,11 @@ require("scope").setup({})
 
 -- flash
 require("flash").setup({
+    modes = {
+        char = {
+            enabled = false,
+        },
+    },
 })
 vim.keymap.set({ "n", "x", "o" }, "s", function() require("flash").jump() end, { desc = "Flash Jump" })
 
@@ -360,17 +366,38 @@ vim.api.nvim_create_user_command('Path', function()
     vim.notify('Copied relative path: ' .. path, vim.log.levels.INFO)
 end, { desc = "Copy relative file path to clipboard" })
 
+-- Helper function to strictly check for Ubuntu
+local function is_ubuntu()
+  local file = io.open("/etc/os-release", "r")
+  if not file then return false end
+
+  local found_ubuntu = false
+
+  -- Read line by line for an exact match
+  for line in file:lines() do
+    if line == "ID=ubuntu" or line == 'ID="ubuntu"' then
+      found_ubuntu = true
+      break -- Stop reading once we find it
+    end
+  end
+
+  file:close()
+  return found_ubuntu
+end
+
 -- for old tmux versions, need this to pass clipboard content to windows
-vim.g.clipboard = {
-  name = 'OSC 52',
-  copy = {
-    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
-    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
-  },
-  paste = {
-    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
-    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
-  },
-}
+if is_ubuntu() then
+  vim.g.clipboard = {
+    name = 'OSC 52',
+    copy = {
+      ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+    },
+    paste = {
+      ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+    },
+  }
+end
 
 vim.opt.clipboard = "unnamedplus"
