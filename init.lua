@@ -104,7 +104,8 @@ lspconfig['lua_ls'].setup({
 lspconfig['marksman'].setup({})
 lspconfig.pylsp.setup({ capabilities = capabilities })
 -- lspconfig['jedi'].setup({ capabilities = capabilities })
-lspconfig['checkmake'].setup({})
+-- require higher version of glibc
+-- lspconfig['checkmake'].setup({})
 
 -- lsp keymap
 vim.keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true })
