@@ -402,3 +402,5 @@ if is_ubuntu() then
 end
 
 vim.opt.clipboard = "unnamedplus"
+
+vim.o.timeoutlen = 2000
