@@ -114,6 +114,46 @@ vim.keymap.set("n", "gn", "<Cmd>lua vim.lsp.buf.rename()<CR>", { noremap = true 
 vim.keymap.set("n", "g]", "<Cmd>lua vim.diagnostic.goto_next()<CR>", { noremap = true })
 vim.keymap.set("n", "g[", "<Cmd>lua vim.diagnostic.goto_prev()<CR>", { noremap = true })
 
+local function filter_lsp_duplicates()
+    local original_definition_handler = vim.lsp.handlers["textDocument/definition"]
+
+    vim.lsp.handlers["textDocument/definition"] = function(err, result, ctx, config)
+        -- 如果没有结果，直接走默认逻辑
+        if err or not result or vim.tbl_isempty(result) then
+            return original_definition_handler(err, result, ctx, config)
+        end
+
+        -- 如果返回的是一个列表，进行去重
+        if vim.islist(result) then
+            local seen = {}
+            local filtered_result = {}
+
+            for _, res in ipairs(result) do
+                local uri = res.uri or res.targetUri
+                local range = res.range or res.targetSelectionRange
+
+                if uri and range then
+                    -- 用 URI 和行号列号生成唯一 Key
+                    local key = uri .. ':' .. range.start.line .. ':' .. range.start.character
+                    if not seen[key] then
+                        seen[key] = true
+                        table.insert(filtered_result, res)
+                    end
+                end
+            end
+
+            -- 将去重后的结果重新赋值
+            result = filtered_result
+        end
+
+        -- 调用原始的 handler 传入去重后的结果
+        original_definition_handler(err, result, ctx, config)
+    end
+end
+
+-- 启用过滤器
+filter_lsp_duplicates()
+
 --local status, treesitter = pcall(require, "nvim-treesitter.configs")
 --if not status then
 --    return
@@ -262,6 +302,14 @@ local function toggle_fugitive_vertical()
         vim.api.nvim_win_close(fugitive_win, false)
     else
         vim.cmd('vertical Git')
+        -- vertical Git 执行后，焦点会自动跳到新打开的 fugitive 窗口
+        local win = vim.api.nvim_get_current_win()
+        local current_width = vim.api.nvim_win_get_width(win)
+
+        -- 如果当前宽度大于 80，则将其限制为 80
+        if current_width > 80 then
+            vim.api.nvim_win_set_width(win, 80)
+        end
     end
 end
 
