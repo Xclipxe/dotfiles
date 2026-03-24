@@ -553,6 +553,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
 vim.api.nvim_create_autocmd("BufLeave", {
     callback = function()
-        vim.opt.laststatus = 2
+        vim.opt.laststatus = 3
     end,
 })
