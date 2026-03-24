@@ -131,7 +131,7 @@ local function filter_lsp_duplicates()
             for _, res in ipairs(result) do
                 local uri = res.uri or res.targetUri
                 local range = res.range or res.targetSelectionRange
-
+                
                 if uri and range then
                     -- 用 URI 和行号列号生成唯一 Key
                     local key = uri .. ':' .. range.start.line .. ':' .. range.start.character
@@ -141,7 +141,7 @@ local function filter_lsp_duplicates()
                     end
                 end
             end
-
+            
             -- 将去重后的结果重新赋值
             result = filtered_result
         end
@@ -271,7 +271,13 @@ require("fzf-lua").setup {
     on_create = function()
       vim.keymap.set("t", "<C-r>", [['<C-\><C-N>"'.nr2char(getchar()).'pi']], { expr = true, buffer = true })
     end,
-  }
+  },
+  keymap = {
+      builtin = {
+          ["<C-d>"] = "preview-page-down",
+          ["<C-u>"] = "preview-page-up",
+      },
+  },
 }
 
 vim.keymap.set("n", "<leader>ff", "<cmd>FzfLua files<CR>", { noremap = true })
@@ -305,7 +311,7 @@ local function toggle_fugitive_vertical()
         -- vertical Git 执行后，焦点会自动跳到新打开的 fugitive 窗口
         local win = vim.api.nvim_get_current_win()
         local current_width = vim.api.nvim_win_get_width(win)
-
+        
         -- 如果当前宽度大于 80，则将其限制为 80
         if current_width > 80 then
             vim.api.nvim_win_set_width(win, 80)
