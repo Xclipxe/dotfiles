@@ -294,6 +294,29 @@ require("colorful-winsep").setup {
 }
 
 -- fugitive
+-- auto adjust window width to 80
+local fugitive_group = vim.api.nvim_create_augroup('FugitiveFormat', { clear = true })
+
+vim.api.nvim_create_autocmd({ 'BufWinEnter', 'WinEnter', 'WinResized', 'VimResized' }, {
+    group = fugitive_group,
+    pattern = '*',
+    callback = function()
+        vim.schedule(function()
+            for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+                if vim.api.nvim_win_is_valid(win) then
+                    local buf = vim.api.nvim_win_get_buf(win)
+
+                    if vim.bo[buf].filetype == 'fugitive' then
+                        if vim.api.nvim_win_get_width(win) > 80 then
+                            vim.api.nvim_win_set_width(win, 80)
+                        end
+                    end
+                end
+            end
+        end)
+    end,
+})
+
 local function toggle_fugitive_vertical()
     local fugitive_win = nil
     for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
@@ -308,14 +331,6 @@ local function toggle_fugitive_vertical()
         vim.api.nvim_win_close(fugitive_win, false)
     else
         vim.cmd('vertical Git')
-        -- vertical Git 执行后，焦点会自动跳到新打开的 fugitive 窗口
-        local win = vim.api.nvim_get_current_win()
-        local current_width = vim.api.nvim_win_get_width(win)
-        
-        -- 如果当前宽度大于 80，则将其限制为 80
-        if current_width > 80 then
-            vim.api.nvim_win_set_width(win, 80)
-        end
     end
 end
 
@@ -352,9 +367,10 @@ local function toggle_fugitive_log()
         vim.cmd('G log -50 --decorate')
     end
 end
+
 vim.keymap.set('n', '<leader>gg', toggle_fugitive_vertical, { desc = 'Toggle Fugitive Vertical' })
-vim.keymap.set('n', '<leader>gb', toggle_fugitive_blame, { desc = 'Toggle Fugitive Vertical' })
-vim.keymap.set('n', '<leader>gl', toggle_fugitive_log, { desc = 'Toggle Fugitive Vertical' })
+vim.keymap.set('n', '<leader>gb', toggle_fugitive_blame, { desc = 'Toggle Fugitive Blame' })
+vim.keymap.set('n', '<leader>gl', toggle_fugitive_log, { desc = 'Toggle Fugitive Log' })
 
 -- scope
 require("scope").setup({})
