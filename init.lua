@@ -216,11 +216,11 @@ vim.keymap.set('n', '<F5>', toggle_paste, { desc = 'Toggle paste mode' })
 -- aerial
 require("aerial").setup({
   -- optionally use on_attach to set keymaps when aerial has attached to a buffer
-  on_attach = function(bufnr)
-    -- Jump forwards/backwards with '{' and '}'
-    vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
-    vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
-  end,
+  -- on_attach = function(bufnr)
+  --   -- Jump forwards/backwards with '{' and '}'
+  --   vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+  --   vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+  -- end,
 })
 vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>", { noremap = true })
 
@@ -394,7 +394,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 -- if wrap markview won't render middle lines of table
 vim.opt.wrap = false
-vim.keymap.set("n", "cc", ":cclose<cr>")
+vim.keymap.set("n", "qc", ":cclose<cr>")
 vim.opt.termguicolors = true
 
 -- vim.api.nvim_create_user_command("ReloadFoo", function()

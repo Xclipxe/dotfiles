@@ -87,9 +87,9 @@ set cursorline
 
 " auto comment setting
 " autocmd FileType c set commentstring=//\ %s
-autocmd FileType c set commentstring=/*\ %s\ */
-autocmd FileType cpp set commentstring=/*\ %s\ */
-autocmd FileType dts set commentstring=/*\ %s\ */
+autocmd FileType c set commentstring=//\ %s
+autocmd FileType cpp set commentstring=//\ %s
+autocmd FileType dts set commentstring=//\ %s
 autocmd FileType asl set commentstring=//\ %s
 autocmd FileType uefifdf set commentstring=#\ %s
 autocmd FileType uefiinf set commentstring=#\ %s
