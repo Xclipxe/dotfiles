@@ -13,7 +13,7 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'stevearc/oil.nvim'
 Plug 'aphroteus/vim-uefi'
 Plug 'ibhagwan/fzf-lua'
-Plug 'nvim-treesitter/nvim-treesitter', {'tag' : 'v0.10.0'}
+Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'sitiom/nvim-numbertoggle'
 Plug 'nvim-lualine/lualine.nvim'
