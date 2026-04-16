@@ -15,6 +15,7 @@ Plug 'aphroteus/vim-uefi'
 Plug 'ibhagwan/fzf-lua'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/nvim-treesitter-context'
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'sitiom/nvim-numbertoggle'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-zh/colorful-winsep.nvim'
@@ -98,8 +99,8 @@ autocmd FileType uefidsc set commentstring=#\ %s
 inoremap jk <esc>
 
 " better ctrl d and ctrl u
-noremap <C-d> <C-d>zz
-noremap <C-u> <C-u>zz
+" noremap <C-d> <C-d>zz
+" noremap <C-u> <C-u>zz
 
 " default use demical when <C-a>
 set nrformats=

@@ -183,6 +183,17 @@ require'nvim-treesitter'.setup {
     },
   },
 }
+-- configuration
+require("nvim-treesitter-textobjects").setup {
+}
+
+vim.keymap.set({ "x", "o" }, "ap", function()
+  require "nvim-treesitter-textobjects.select".select_textobject("@parameter.outer", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "ip", function()
+  require "nvim-treesitter-textobjects.select".select_textobject("@parameter.inner", "textobjects")
+end)
+
 vim.cmd("hi link TreesitterContextBottom SpellCap")
 -- require'treesitter-context'.setup{
   -- enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
@@ -474,6 +485,7 @@ end
 vim.opt.clipboard = "unnamedplus"
 
 vim.o.timeoutlen = 2000
+
 
 
 -- ==========================================================================
