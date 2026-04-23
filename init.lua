@@ -1,5 +1,46 @@
 local vim_config = vim.fn.stdpath("config") .. "/config.vim"
 vim.cmd("source " .. vim_config)
+
+vim.pack.add({
+    { src = 'https://github.com/tpope/vim-surround' },
+    { src = 'https://github.com/tpope/vim-commentary' },
+    { src = 'https://github.com/tpope/vim-repeat' },
+    { src = 'https://github.com/tpope/vim-fugitive' },
+    { src = 'https://github.com/morhetz/gruvbox' },
+    { src = 'https://github.com/nvim-lua/plenary.nvim' },
+    { src = 'https://github.com/akinsho/toggleterm.nvim', version = 'v2.13.0', },
+    { src = 'https://github.com/mg979/vim-visual-multi', version = 'master', },
+    { src = 'https://github.com/stevearc/oil.nvim' },
+    { src = 'https://github.com/aphroteus/vim-uefi' },
+    { src = 'https://github.com/ibhagwan/fzf-lua' },
+    { src = 'https://github.com/nvim-treesitter/nvim-treesitter' }, 
+    { src = 'https://github.com/nvim-treesitter/nvim-treesitter-context' },
+    { src = 'https://github.com/nvim-treesitter/nvim-treesitter-textobjects' },
+    { src = 'https://github.com/sitiom/nvim-numbertoggle' },
+    { src = 'https://github.com/nvim-lualine/lualine.nvim' },
+    { src = 'https://github.com/nvim-zh/colorful-winsep.nvim' },
+    { src = 'https://github.com/folke/flash.nvim' },
+    { src = 'https://github.com/tiagovla/scope.nvim' },
+    
+    -- lsp
+    { src = 'https://github.com/mason-org/mason.nvim' },
+    { src = 'https://github.com/neovim/nvim-lspconfig', version = 'v2.8.0' },
+
+    -- auto completion
+    -- somethings may goes wrong if press <C-p> to the completion menu 
+    -- rm blink and its dependency, remove .local/share/nvim/blink,
+    -- install blink, remember to add a tag
+    { src = 'https://github.com/saghen/blink.cmp', version = 'v1.10.0', },
+    { src = 'https://github.com/rafamadriz/friendly-snippets' },
+
+    -- markdown preview
+    { src = 'https://github.com/echasnovski/mini.icons' },
+    { src = 'https://github.com/OXY2DEV/markview.nvim' },
+
+    -- symbol table
+    { src = 'https://github.com/stevearc/aerial.nvim' },
+})
+
 require('mini.icons').setup()
 
 require("markview").setup({
@@ -79,10 +120,14 @@ cmp.setup({
 })
 
 local capabilities = require('blink.cmp').get_lsp_capabilities()
-local lspconfig = require('lspconfig')
-lspconfig['clangd'].setup({ capabilities = capabilities })
-lspconfig['lua_ls'].setup({
-    capabilities = capabilities,
+
+-- 1. 使用 vim.lsp.config('server_name', {options}) 注册配置
+vim.lsp.config("clangd", { 
+  capabilities = capabilities 
+})
+
+vim.lsp.config("lua_ls", {
+  capabilities = capabilities,
   settings = {
     Lua = {
       runtime = {
@@ -101,11 +146,15 @@ lspconfig['lua_ls'].setup({
     },
   },
 })
-lspconfig['marksman'].setup({})
-lspconfig.pylsp.setup({ capabilities = capabilities })
--- lspconfig['jedi'].setup({ capabilities = capabilities })
--- require higher version of glibc
--- lspconfig['checkmake'].setup({})
+
+vim.lsp.config("marksman", {})
+
+vim.lsp.config("pylsp", { 
+  capabilities = capabilities 
+})
+
+-- 2. 统一激活这些语言服务器 (这一步必不可少)
+vim.lsp.enable({ "clangd", "lua_ls", "marksman", "pylsp" })
 
 -- lsp keymap
 vim.keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true })
