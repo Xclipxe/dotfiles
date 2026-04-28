@@ -44,9 +44,9 @@ set cursorline
 
 " auto comment setting
 " autocmd FileType c set commentstring=//\ %s
-autocmd FileType c set commentstring=//\ %s
-autocmd FileType cpp set commentstring=//\ %s
-autocmd FileType dts set commentstring=//\ %s
+autocmd FileType c set commentstring=/*\ %s\ */
+autocmd FileType cpp set commentstring=/*\ %s\ */
+autocmd FileType dts set commentstring=/*\ %s\ */
 autocmd FileType asl set commentstring=//\ %s
 autocmd FileType uefifdf set commentstring=#\ %s
 autocmd FileType uefiinf set commentstring=#\ %s
@@ -92,8 +92,6 @@ tnoremap <Esc><Esc> <C-\><C-n>
 tnoremap <M-e> <Esc>
 " " To use `ALT+{h,j,k,l}` to navigate windows from any mode >vim
 tnoremap <M-h> <C-\><C-N><C-w>h
-tnoremap <M-j> <C-\><C-N><C-w>j
-tnoremap <M-k> <C-\><C-N><C-w>k
 tnoremap <M-l> <C-\><C-N><C-w>l
 inoremap <M-h> <C-\><C-N><C-w>h
 inoremap <M-j> <C-\><C-N><C-w>j

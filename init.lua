@@ -121,7 +121,6 @@ cmp.setup({
 
 local capabilities = require('blink.cmp').get_lsp_capabilities()
 
--- 1. 使用 vim.lsp.config('server_name', {options}) 注册配置
 vim.lsp.config("clangd", { 
   capabilities = capabilities 
 })
@@ -153,8 +152,22 @@ vim.lsp.config("pylsp", {
   capabilities = capabilities 
 })
 
--- 2. 统一激活这些语言服务器 (这一步必不可少)
 vim.lsp.enable({ "clangd", "lua_ls", "marksman", "pylsp" })
+
+vim.api.nvim_create_user_command('LspRestart', function()
+  local clients = vim.lsp.get_clients()
+  if #clients == 0 then
+    vim.notify("no running LSP client", vim.log.levels.WARN)
+    return
+  end
+
+  for _, client in ipairs(clients) do
+    vim.lsp.stop_client(client.id)
+  end
+
+  vim.cmd("edit") 
+  vim.notify("LSP restarted")
+end, {})
 
 -- lsp keymap
 vim.keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true })
