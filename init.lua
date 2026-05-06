@@ -1,6 +1,9 @@
 local vim_config = vim.fn.stdpath("config") .. "/config.vim"
 vim.cmd("source " .. vim_config)
 
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+
 vim.pack.add({
     { src = 'https://github.com/tpope/vim-surround' },
     { src = 'https://github.com/tpope/vim-commentary' },
