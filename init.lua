@@ -16,7 +16,7 @@ vim.pack.add({
     { src = 'https://github.com/stevearc/oil.nvim' },
     { src = 'https://github.com/aphroteus/vim-uefi' },
     { src = 'https://github.com/ibhagwan/fzf-lua' },
-    { src = 'https://github.com/nvim-treesitter/nvim-treesitter' }, 
+    { src = 'https://github.com/nvim-treesitter/nvim-treesitter' },
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter-context' },
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter-textobjects' },
     { src = 'https://github.com/sitiom/nvim-numbertoggle' },
@@ -24,7 +24,7 @@ vim.pack.add({
     { src = 'https://github.com/nvim-zh/colorful-winsep.nvim' },
     { src = 'https://github.com/folke/flash.nvim' },
     { src = 'https://github.com/tiagovla/scope.nvim' },
-    
+
     -- lsp
     { src = 'https://github.com/mason-org/mason.nvim' },
     { src = 'https://github.com/neovim/nvim-lspconfig', version = 'v2.8.0' },
@@ -124,8 +124,8 @@ cmp.setup({
 
 local capabilities = require('blink.cmp').get_lsp_capabilities()
 
-vim.lsp.config("clangd", { 
-  capabilities = capabilities 
+vim.lsp.config("clangd", {
+  capabilities = capabilities
 })
 
 vim.lsp.config("lua_ls", {
@@ -151,8 +151,8 @@ vim.lsp.config("lua_ls", {
 
 vim.lsp.config("marksman", {})
 
-vim.lsp.config("pylsp", { 
-  capabilities = capabilities 
+vim.lsp.config("pylsp", {
+  capabilities = capabilities
 })
 
 vim.lsp.enable({ "clangd", "lua_ls", "marksman", "pylsp" })
@@ -165,10 +165,10 @@ vim.api.nvim_create_user_command('LspRestart', function()
   end
 
   for _, client in ipairs(clients) do
-    vim.lsp.stop_client(client.id)
+    client:stop()
   end
 
-  vim.cmd("edit") 
+  vim.cmd("edit")
   vim.notify("LSP restarted")
 end, {})
 
@@ -176,19 +176,17 @@ end, {})
 vim.keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true })
 vim.keymap.set("n", "gr", "<Cmd>lua vim.lsp.buf.references()<CR>", { noremap = true })
 vim.keymap.set("n", "gn", "<Cmd>lua vim.lsp.buf.rename()<CR>", { noremap = true })
-vim.keymap.set("n", "g]", "<Cmd>lua vim.diagnostic.goto_next()<CR>", { noremap = true })
-vim.keymap.set("n", "g[", "<Cmd>lua vim.diagnostic.goto_prev()<CR>", { noremap = true })
+vim.keymap.set("n", "g]", "<Cmd>lua vim.diagnostic.jump(count=1, float=true)<CR>", { noremap = true })
+vim.keymap.set("n", "g[", "<Cmd>lua vim.diagnostic.jump(count=-1, float=true)<CR>", { noremap = true })
 
 local function filter_lsp_duplicates()
     local original_definition_handler = vim.lsp.handlers["textDocument/definition"]
 
     vim.lsp.handlers["textDocument/definition"] = function(err, result, ctx, config)
-        -- 如果没有结果，直接走默认逻辑
         if err or not result or vim.tbl_isempty(result) then
             return original_definition_handler(err, result, ctx, config)
         end
 
-        -- 如果返回的是一个列表，进行去重
         if vim.islist(result) then
             local seen = {}
             local filtered_result = {}
@@ -196,9 +194,8 @@ local function filter_lsp_duplicates()
             for _, res in ipairs(result) do
                 local uri = res.uri or res.targetUri
                 local range = res.range or res.targetSelectionRange
-                
+
                 if uri and range then
-                    -- 用 URI 和行号列号生成唯一 Key
                     local key = uri .. ':' .. range.start.line .. ':' .. range.start.character
                     if not seen[key] then
                         seen[key] = true
@@ -206,12 +203,10 @@ local function filter_lsp_duplicates()
                     end
                 end
             end
-            
-            -- 将去重后的结果重新赋值
+
             result = filtered_result
         end
 
-        -- 调用原始的 handler 传入去重后的结果
         original_definition_handler(err, result, ctx, config)
     end
 end
@@ -277,17 +272,17 @@ vim.cmd("hi link TreesitterContextBottom SpellCap")
 -- }
 
 -- toggle paste mode
-local toggle_paste = function()
-  if vim.opt.paste:get() then
-    vim.opt.paste = false
-    print('PASTE mode OFF')
-  else
-    vim.opt.paste = true
-    print('PASTE mode ON')
-  end
-end
+-- local toggle_paste = function()
+--   if vim.opt.paste:get() then
+--     vim.opt.paste = false
+--     print('PASTE mode OFF')
+--   else
+--     vim.opt.paste = true
+--     print('PASTE mode ON')
+--   end
+-- end
 
-vim.keymap.set('n', '<F5>', toggle_paste, { desc = 'Toggle paste mode' })
+-- vim.keymap.set('n', '<F5>', toggle_paste, { desc = 'Toggle paste mode' })
 
 -- aerial
 require("aerial").setup({
@@ -561,7 +556,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
     group = vim.api.nvim_create_augroup("PerfectRatioFuck", { clear = true }),
     callback = function()
         if vim.fn.argc() == 0 and vim.api.nvim_buf_get_name(0) == "" then
-            
+
             -- 高度：严格 30 行
             -- 宽度：每个字母 30 字符宽，极度粗壮，比例完美协调
             local logo = {
@@ -601,7 +596,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
             }
 
             local buf = vim.api.nvim_get_current_buf()
-            
+
             vim.opt_local.bufhidden = "wipe"
             vim.opt_local.buftype = "nofile"
             vim.opt_local.swapfile = false
@@ -613,8 +608,8 @@ vim.api.nvim_create_autocmd("VimEnter", {
             vim.opt.laststatus = 0
 
             local function draw()
-                local screen_width = vim.api.nvim_get_option("columns")
-                local screen_height = vim.api.nvim_get_option("lines")
+                local screen_width = vim.api.nvim_get_option_value("columns", {})
+                local screen_height = vim.api.nvim_get_option_value("lines", {})
                 local centered_content = {}
 
                 -- 垂直居中
@@ -627,15 +622,15 @@ vim.api.nvim_create_autocmd("VimEnter", {
                     table.insert(centered_content, string.rep(" ", math.max(0, shift)) .. line)
                 end
 
-                vim.api.nvim_buf_set_option(buf, "modifiable", true)
+                -- vim.api.nvim_set_option_value("modifiable", true, {})
                 vim.api.nvim_buf_set_lines(buf, 0, -1, false, centered_content)
-                vim.api.nvim_buf_set_option(buf, "modifiable", false)
+                -- vim.api.nvim_set_option_value("modifiable", false, {})
             end
 
             draw()
 
             vim.keymap.set("n", "q", ":qa<CR>", { buffer = buf, silent = true })
-            
+
             vim.api.nvim_create_autocmd("VimResized", {
                 buffer = buf,
                 callback = draw
