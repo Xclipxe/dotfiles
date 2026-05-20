@@ -24,6 +24,7 @@ vim.pack.add({
     { src = 'https://github.com/nvim-zh/colorful-winsep.nvim' },
     { src = 'https://github.com/folke/flash.nvim' },
     { src = 'https://github.com/tiagovla/scope.nvim' },
+    { src = 'https://github.com/numToStr/Comment.nvim' },
 
     -- lsp
     { src = 'https://github.com/mason-org/mason.nvim' },
@@ -455,6 +456,9 @@ require("flash").setup({
     },
 })
 vim.keymap.set({ "n", "x", "o" }, "s", function() require("flash").jump() end, { desc = "Flash Jump" })
+
+-- comment.nvim
+-- require('Comment').setup()
 
 -- misc
 vim.keymap.set("n", "<leader>tt", "<cmd>tab terminal<CR>", { noremap = true })
