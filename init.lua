@@ -248,12 +248,13 @@ require'nvim-treesitter'.setup {
 require("nvim-treesitter-textobjects").setup {
 }
 
-vim.keymap.set({ "x", "o" }, "ap", function()
+vim.keymap.set({ "x", "o" }, "aa", function()
   require "nvim-treesitter-textobjects.select".select_textobject("@parameter.outer", "textobjects")
-end)
-vim.keymap.set({ "x", "o" }, "ip", function()
+end, { desc = "Select outer argument" })
+
+vim.keymap.set({ "x", "o" }, "ia", function()
   require "nvim-treesitter-textobjects.select".select_textobject("@parameter.inner", "textobjects")
-end)
+end, { desc = "Select inner argument" })
 
 vim.cmd("hi link TreesitterContextBottom SpellCap")
 -- require'treesitter-context'.setup{
