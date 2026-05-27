@@ -491,18 +491,19 @@ vim.api.nvim_create_autocmd("TermOpen", {
 -- syntax highlight support for aslc
 vim.filetype.add({
   extension = {
-    aslc = "aslc",
+    aslc = "c",
+    asl = "c",
   },
 })
 
--- add file aslc highlight support
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "aslc",
-  callback = function()
-    vim.opt_local.syntax = "c"
-    vim.opt_local.commentstring = "// %s"
-  end,
-})
+-- -- add file aslc highlight support
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "aslc",
+--   callback = function()
+--     vim.opt_local.syntax = "c"
+--     vim.opt_local.commentstring = "// %s"
+--   end,
+-- })
 
 -- copy path to clipboard
 vim.api.nvim_create_user_command('Path', function()
