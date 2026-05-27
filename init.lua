@@ -177,8 +177,8 @@ end, {})
 vim.keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true })
 vim.keymap.set("n", "gr", "<Cmd>lua vim.lsp.buf.references()<CR>", { noremap = true })
 vim.keymap.set("n", "gn", "<Cmd>lua vim.lsp.buf.rename()<CR>", { noremap = true })
-vim.keymap.set("n", "g]", "<Cmd>lua vim.diagnostic.jump(count=1, float=true)<CR>", { noremap = true })
-vim.keymap.set("n", "g[", "<Cmd>lua vim.diagnostic.jump(count=-1, float=true)<CR>", { noremap = true })
+vim.keymap.set("n", "g]", "<Cmd>lua vim.diagnostic.jump({count=1, float=true})<CR>", { noremap = true })
+vim.keymap.set("n", "g[", "<Cmd>lua vim.diagnostic.jump({count=-1, float=true})<CR>", { noremap = true })
 
 local function filter_lsp_duplicates()
     local original_definition_handler = vim.lsp.handlers["textDocument/definition"]
