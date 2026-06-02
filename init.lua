@@ -341,6 +341,10 @@ require("fzf-lua").setup {
 
 vim.keymap.set("n", "<leader>ff", "<cmd>FzfLua files<CR>", { noremap = true })
 vim.keymap.set("n", "<leader>fg", "<cmd>FzfLua live_grep<CR>", { noremap = true })
+vim.keymap.set("n", "<leader>fw", function()
+    local word = vim.fn.expand("<cword>")
+    require("fzf-lua").live_grep({ search = word })
+end, { noremap = true })
 vim.keymap.set("n", "<leader>fb", "<cmd>FzfLua buffers<CR>", { noremap = true })
 vim.keymap.set("n", "<leader>fr", "<cmd>FzfLua resume<CR>", { noremap = true })
 vim.keymap.set("n", "<leader>fh", "<cmd>FzfLua helptags<CR>", { noremap = true })
