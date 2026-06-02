@@ -25,6 +25,7 @@ vim.pack.add({
     { src = 'https://github.com/folke/flash.nvim' },
     { src = 'https://github.com/tiagovla/scope.nvim' },
     { src = 'https://github.com/numToStr/Comment.nvim' },
+    { src = 'https://github.com/ThePrimeagen/harpoon', version = 'harpoon2' },
 
     -- lsp
     { src = 'https://github.com/mason-org/mason.nvim' },
@@ -460,6 +461,18 @@ vim.keymap.set({ "n", "x", "o" }, "s", function() require("flash").jump() end, {
 
 -- comment.nvim
 -- require('Comment').setup()
+
+local harpoon = require("harpoon")
+
+-- harpoon2
+harpoon:setup()
+
+vim.keymap.set("n", "<leader>ha", function() harpoon:list():add() end)
+vim.keymap.set("n", "<leader>hu", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+-- Toggle previous & next buffers stored within Harpoon list
+vim.keymap.set("n", "<leader>hp", function() harpoon:list():prev() end)
+vim.keymap.set("n", "<leader>hn", function() harpoon:list():next() end)
 
 -- misc
 vim.keymap.set("n", "<leader>tt", "<cmd>tab terminal<CR>", { noremap = true })
