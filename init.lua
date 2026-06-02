@@ -159,21 +159,6 @@ vim.lsp.config("pylsp", {
 
 vim.lsp.enable({ "clangd", "lua_ls", "marksman", "pylsp" })
 
-vim.api.nvim_create_user_command('LspRestart', function()
-  local clients = vim.lsp.get_clients()
-  if #clients == 0 then
-    vim.notify("no running LSP client", vim.log.levels.WARN)
-    return
-  end
-
-  for _, client in ipairs(clients) do
-    client:stop()
-  end
-
-  vim.cmd("edit")
-  vim.notify("LSP restarted")
-end, {})
-
 -- lsp keymap
 vim.keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true })
 vim.keymap.set("n", "gr", "<Cmd>lua vim.lsp.buf.references()<CR>", { noremap = true })
