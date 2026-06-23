@@ -65,10 +65,10 @@
       "KC_BSPC",
       "KC_LCTL",
       "MO(2)",
-      "KC_LGUI",
       "MO(1)",
+      "KC_LGUI",
       "KC_LALT",
-      "KC_LALT",
+      "KC_LCTL",
       "TO(2)",
       "TO(1)"
     ],
