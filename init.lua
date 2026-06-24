@@ -46,6 +46,11 @@ vim.pack.add({
     { src = 'https://github.com/stevearc/aerial.nvim' },
 })
 
+-- use colorscheme gruvbox
+vim.opt.background = "dark"
+vim.g.gruvbox_contrast_dark = "hard"
+vim.cmd.colorscheme("gruvbox")
+
 require('mini.icons').setup()
 
 require("markview").setup({

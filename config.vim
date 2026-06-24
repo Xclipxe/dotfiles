@@ -14,11 +14,6 @@ set shiftwidth=4
 set expandtab
 autocmd FileType c,cpp,dts setlocal shiftwidth=8 tabstop=8 noexpandtab
 
-" use colorscheme gruvbox
-set background=dark
-let g:gruvbox_contrast_dark="hard"
-colorscheme gruvbox
-
 " allow copy to clipboard, so that you can paste to other apps
 set clipboard=unnamed
 
