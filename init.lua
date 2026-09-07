@@ -511,11 +511,18 @@ vim.filetype.add({
 
 -- copy path to clipboard
 vim.api.nvim_create_user_command('Path', function()
-    local path = vim.fn.expand("%")
+  local full = vim.api.nvim_buf_get_name(0)
+  if full == '' then
+    vim.notify('Buffer has no file', vim.log.levels.WARN)
+    return
+  end
 
-    vim.fn.setreg("+", path)
+  -- vim.uv.cwd() = the process cwd (global pwd), unaffected by :lcd/:tcd
+  local cwd = vim.fn.getcwd(-1, -1) .. '/'
+  local path = (full:sub(1, #cwd) == cwd) and full:sub(#cwd + 1) or full
 
-    vim.notify('Copied relative path: ' .. path, vim.log.levels.INFO)
+  vim.fn.setreg('+', path)
+  vim.notify('Copied relative path: ' .. path, vim.log.levels.INFO)
 end, { desc = "Copy relative file path to clipboard" })
 
 -- Helper function to strictly check for Ubuntu
