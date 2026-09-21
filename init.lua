@@ -162,7 +162,15 @@ vim.lsp.config("pylsp", {
   capabilities = capabilities
 })
 
-vim.lsp.enable({ "clangd", "lua_ls", "marksman", "pylsp" })
+vim.lsp.config.bashls = {
+    cmd = { 'bash-language-server', 'start' },
+    filetypes = { 'bash', 'sh' }
+}
+-- vim.lsp.config("bash-language-server", {
+--     capabilities = capabilities
+-- })
+
+vim.lsp.enable({ "clangd", "lua_ls", "marksman", "pylsp", "bashls" })
 
 -- lsp keymap
 vim.keymap.set("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true })
