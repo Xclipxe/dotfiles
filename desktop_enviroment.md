@@ -206,7 +206,7 @@ create config file in `~/.config/picom.conf`
 run picom with
 
 ```shell
-picom --backend xrender
+picom --backend glx
 ```
 
 ### feh - wallpaper
