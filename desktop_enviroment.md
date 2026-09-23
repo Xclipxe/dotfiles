@@ -302,6 +302,18 @@ usage=$(( 100 - $idle ))
 printf "%d%%" $usage
 ```
 
+- memory usage
+
+```shell
+#!/bin/bash
+available=$(free -h | awk '/Mem/ {print $7}' | awk -F 'G' '{print $1}')
+total=$(free -h | awk '/Mem/ {print $2}' | awk -F 'G' '{print $1}')
+
+percentage=$(( ($total - $available) * 100 / $total ))
+
+printf "%d%%" $percentage
+```
+
 ### slock
 
 should have this in config.def.h
