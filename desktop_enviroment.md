@@ -375,6 +375,15 @@ service should be opened to manage it via `systemsetting`
 systemctl --user status plasma-powerdevil.service 
 ```
 
+### Screen got turned off
+
+```shell
+# add to startdwm.sh
+xset s off
+```
+
+It's the X screen saver.
+
 ### OBS
 
 OBS recording fail. go to settings, find record, advanced setting, switch encoder to ffmpeg
