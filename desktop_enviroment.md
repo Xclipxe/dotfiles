@@ -299,7 +299,7 @@ idle=$(iostat -c | awk '/avg-cpu/ { getline; print $6 }')
 idle=$(printf "%.0f" $idle)
 usage=$(( 100 - $idle ))
 
-printf "%d%%" $usage
+printf "%d%%" $usage
 ```
 
 - memory usage
@@ -399,6 +399,8 @@ periodically update config file from subscription url.
 npm
 
 sysstat
+
+satty
 
 ## Resources
 
