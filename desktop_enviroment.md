@@ -250,7 +250,7 @@ fi
 
 ```shell
 #!/bin/bash
-date +%H:%M:%S
+date '+%b %d, %a, %H:%M:%S'
 ```
 
 - battery
@@ -388,11 +388,14 @@ It's the X screen saver.
 
 OBS recording fail. go to settings, find record, advanced setting, switch encoder to ffmpeg
 
+### Brightness
+
+use `brightnessctl`
+
 ## TODO
 
-### Proxy
-
-periodically update config file from subscription url.
+- **proxy**: periodically update config file from subscription url.
+- **music player**: gomusicfox
 
 ## Package
 
