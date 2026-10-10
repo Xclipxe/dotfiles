@@ -18,6 +18,8 @@ setopt COMPLETE_IN_WORD
 # ----- Line editing (fish-like) -----
 # Ctrl+W kills only the last path component (stop at '/'), like fish's backward-kill-path-component
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+# Ctrl+U kills from cursor back to start of line (bash/readline behavior; zsh defaults to kill-whole-line)
+bindkey '^U' backward-kill-line
 
 # ----- Autosuggestion (gray ghost text) -----
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
