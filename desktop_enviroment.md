@@ -392,6 +392,16 @@ OBS recording fail. go to settings, find record, advanced setting, switch encode
 
 use `brightnessctl`
 
+### Monitor hotplug
+
+```shell
+# check if monitor connected
+xrandr
+
+# connect
+xrandr --output DP-3 --auto --right-of eDP-1
+```
+
 ## TODO
 
 - **proxy**: periodically update config file from subscription url.
