@@ -415,6 +415,10 @@ sysstat
 
 satty
 
+yay: fzf-tab
+zsh-autosuggestions
+zsh-syntax-highlighting
+
 ## Resources
 
 https://www.nerdfonts.com/cheat-sheet
