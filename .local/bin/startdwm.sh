@@ -19,6 +19,7 @@ fcitx5 -d
 flameshot &
 clipmenud &
 dunst &
+xautolock -time 5 -locker slock &
 
 xrandr --output DP-3 --left-of eDP-1
 

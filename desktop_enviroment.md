@@ -415,7 +415,7 @@ sysstat
 
 satty
 
-yay: fzf-tab
+yay: fzf-tab, xautolock
 zsh-autosuggestions
 zsh-syntax-highlighting
 
