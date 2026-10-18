@@ -314,6 +314,28 @@ percentage=$(( ($total - $available) * 100 / $total ))
 printf "%d%%" $percentage
 ```
 
+- network status
+
+```shell
+#!/bin/bash
+
+network_icon=""
+network_type=$(nmcli -t device | awk -F ':' '/connected/ && !/externally/ && !/disconnected/ { print $2 }')
+network_name=$(nmcli -t device | awk -F ':' '/connected/ && !/externally/ && !/disconnected/ { print $4 }')
+
+if [[ "$network_type" == "wifi" ]]; then
+    network_icon=""
+    printf "%s %s" "$network_icon" "$network_name"
+    exit 0
+elif [[ "$network_type" == "ethernet" ]]; then
+    network_icon=""
+else
+    network_icon="󰖪"
+fi
+
+printf "%s" "$network_icon"
+```
+
 ### slock
 
 should have this in config.def.h
