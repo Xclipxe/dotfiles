@@ -415,6 +415,8 @@ sysstat
 
 satty
 
+trash-cli
+
 yay: fzf-tab, xautolock
 zsh-autosuggestions
 zsh-syntax-highlighting
