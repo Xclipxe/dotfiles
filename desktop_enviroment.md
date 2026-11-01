@@ -336,6 +336,49 @@ fi
 printf "%s" "$network_icon"
 ```
 
+- hex2bin
+
+```shell
+#!/bin/bash
+
+file="$HOME/.hex2bin"
+touch $file
+
+cmd=$(cat $file | dmenu -l 1 -p "input your hex")
+
+while [ -n "$cmd" ]; do
+    hex=$cmd
+    python -c 'import sys
+try:
+    hex_str = int(sys.argv[1], 16)
+except ValueError:
+    print("not a fucking hex")
+    sys.exit()
+
+bin_str = bin(hex_str)
+bin_str = bin_str[2:]
+
+bitmap=""
+val=""
+for i in range(len(bin_str)):
+    index = len(bin_str) - 1 - i
+    bitmap += str(index)
+    if index >= 10:
+        bitmap += " "
+    else:
+        bitmap += "  "
+    val += bin_str[i]
+    val += "  "
+
+print(bitmap)
+print(val) ' $cmd > $file
+    
+    cmd=$(cat $file | dmenu -l 2 -p "0x$hex")
+done
+
+exit 0
+```
+
 ### slock
 
 should have this in config.def.h
